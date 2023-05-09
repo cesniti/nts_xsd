@@ -2,6 +2,63 @@
 
 An overview of all changes to the NtS xsd is provided in this file.
 
+## [4.5] - Oct 2020
+
+### Changed
+- CR 195 - Introduce network_part and object to WRM to comply with the structure of other NtS-messages
+	Changed object in WRM to optional & add network part
+      <xs:element name="network_part" type="nts:geo_network_type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>A part on the network delimited by two points</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="object" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Object section</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+- CR 196: Streamlining of codes - removal of unused enumerations  
+		reason_code_enum
+			de-activate <xs:enumeration value="OTHER"/>
+		interval_code_enum
+			de-activate <xs:enumeration value="EXC"/>
+		Removal of following enumerations:
+			reason_code_enum
+					deleted value "INFSER"
+			subject_code_enum
+				deleted values "OBSTRU", "PAROBS", "DELAY", "VESLEN", "VESHEI", "VESBRE", "VESDRA", "AVALEN", "CLEHEI", "CLEWID", "AVADEP", "NOMOOR", "SERVIC",
+					"NOSERV", "SPEED", "WAVWAS", "PASSIN", "ANCHOR", "OVRTAK", "MINPWR", "DREDGE", "WORK", "EVENT", "CHGMAR", "CHGSER", "SPCMAR", "EXERC", "LEADEP",
+					"LEVDEC", "LEVRIS", "LIMITA", "MISECH", "ECDISU", "NEWOBJ", "CHWWY", "CONWWY", "DIVER", "SPECTR", "LOCRUL", "VHFCOV", "HIGVOL", "TURNIN",
+					"CONBRE", "CONLEN", "REMOBJ"  
+- CR 197 - Self Describing Message Part 2
+		Change <xs:element name="originator"> to <xs:element name="publisher">
+		Remove <xs:element name="source" minOccurs="0"> in FTM
+		Add <xs:element name="source" minOccurs="0"> in Identification
+		Make coordinate mandatory in location_type
+		  <xs:element name="coordinate" type="nts:coordinate_type">
+			<xs:annotation>
+			  <xs:documentation>coordinate</xs:documentation>
+			</xs:annotation>
+		  </xs:element>
+		Rename preticted to forecast in measure_type
+			<xs:element name="forecast" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Forecast (1 or true) or real measurement (0 or false)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		Make measuredate mandatory in weather_report
+		  <xs:element name="measuredate" type="xs:dateTime">
+			<xs:annotation>
+			  <xs:documentation>Date and time of measurement or forecast value including timezone</xs:documentation>
+			</xs:annotation>
+		  </xs:element>
+		Make interval_code mandatory in limitation_period
+    		<xs:element name="interval_code" type="nts:interval_code_enum" default="CON">
+				<xs:annotation>
+					<xs:documentation>Interval for limitation if applicable</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
 ## [4.4] - June 2020
 
 ### Added    

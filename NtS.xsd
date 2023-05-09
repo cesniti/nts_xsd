@@ -432,10 +432,77 @@
             </xs:restriction>
           </xs:simpleType>
         </xs:element>
+        
+-->        
+<!-- V.4.5 oct 2020  
+    
+    CR 195 - Introduce network_part and object to WRM to comply with the structure of other NtS-messages
+    - Changed object in WRM to optional & add network part
+      <xs:element name="network_part" type="nts:geo_network_type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>A part on the network delimited by two points</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="object" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Object section</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    
+    CR 196: Streamlining of codes - removal of unused enumerations  
+    - reason_code_enum
+      de-activate <xs:enumeration value="OTHER"/>
+    
+    - interval_code_enum
+      de-activate <xs:enumeration value="EXC"/>
+      
+    - Removal of following enumerations:
+        reason_code_enum
+					deleted value "INFSER"
+
+				subject_code_enum
+					deleted values "OBSTRU", "PAROBS", "DELAY", "VESLEN", "VESHEI", "VESBRE", "VESDRA", "AVALEN", "CLEHEI", "CLEWID", "AVADEP", "NOMOOR", "SERVIC",
+						"NOSERV", "SPEED", "WAVWAS", "PASSIN", "ANCHOR", "OVRTAK", "MINPWR", "DREDGE", "WORK", "EVENT", "CHGMAR", "CHGSER", "SPCMAR", "EXERC", "LEADEP",
+						"LEVDEC", "LEVRIS", "LIMITA", "MISECH", "ECDISU", "NEWOBJ", "CHWWY", "CONWWY", "DIVER", "SPECTR", "LOCRUL", "VHFCOV", "HIGVOL", "TURNIN",
+						"CONBRE", "CONLEN", "REMOBJ"  
+            
+    CR 197 - Self Describing Message Part 2
+    - Change <xs:element name="originator"> to <xs:element name="publisher">
+    - Remove <xs:element name="source" minOccurs="0"> in FTM
+    - Add <xs:element name="source" minOccurs="0"> in Identification
+
+    - Make coordinate mandatory in location_type
+      <xs:element name="coordinate" type="nts:coordinate_type">
+        <xs:annotation>
+          <xs:documentation>coordinate</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      
+    - Rename preticted to forecast in measure_type
+      <xs:element name="forecast" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Forecast (1 or true) or real measurement (0 or false)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+    
+    - Make measuredate mandatory in weather_report
+      <xs:element name="measuredate" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>Date and time of measurement or forecast value including timezone</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    
+    - Make interval_code mandatory in limitation_period
+    		<xs:element name="interval_code" type="nts:interval_code_enum" default="CON">
+				<xs:annotation>
+					<xs:documentation>Interval for limitation if applicable</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+    
 -->
 
 <!-- =================================================================================== -->
-<xs:schema xmlns:nts="http://www.ris.eu/nts/4.0.4.4" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ris.eu/nts/4.0.4.4" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.0.4.4">
+<xs:schema xmlns:nts="http://www.ris.eu/nts/4.0.4.5" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ris.eu/nts/4.0.4.5" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.0.4.5">
 	<!--
   ===========================================
   = definition of main element RIS_Message  =
@@ -504,9 +571,9 @@
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="originator">
+			<xs:element name="publisher">
 				<xs:annotation>
-					<xs:documentation>Originator (initiator) of the information in this message</xs:documentation>
+					<xs:documentation>Publisher (organisation) of the message</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -514,6 +581,16 @@
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
+      <xs:element name="source" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The organisation/department providing the information published in the message</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="64"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
 			<xs:element name="country_code" type="nts:country_code_enum">
 				<xs:annotation>
 					<xs:documentation>Country where message is valid</xs:documentation>
@@ -658,16 +735,6 @@
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="source" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Notice source (name of authority)</xs:documentation>
-				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="64"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
 			<xs:element name="reason_code" type="nts:reason_code_enum" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Reason / justification of the notice</xs:documentation>
@@ -678,7 +745,12 @@
 					<xs:documentation>Communication channel information</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-      <xs:element name="ftm_limitation_group" type="nts:ftm_limitation_group_type" maxOccurs="unbounded"/>
+      <xs:element name="ftm_limitation_group" type="nts:ftm_limitation_group_type" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>ftm limitation group must contain at least one network_part or object</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      
 		</xs:sequence>
 	</xs:complexType>
 	<!--
@@ -694,52 +766,6 @@
 			<xs:enumeration value="WARNIN"/>
 			<xs:enumeration value="CANCEL"/>
 			<xs:enumeration value="INFSER"/>
-			<!-- obsolete values due to CR 128 but still valid for backwards compatibility -->
-      <xs:enumeration value="OBSTRU"/>
-			<xs:enumeration value="PAROBS"/>
-			<xs:enumeration value="DELAY"/>
-			<xs:enumeration value="VESLEN"/>
-			<xs:enumeration value="VESHEI"/>
-			<xs:enumeration value="VESBRE"/>
-			<xs:enumeration value="VESDRA"/>
-			<xs:enumeration value="AVALEN"/>
-			<xs:enumeration value="CLEHEI"/>
-			<xs:enumeration value="CLEWID"/>
-			<xs:enumeration value="AVADEP"/>
-			<xs:enumeration value="NOMOOR"/>
-			<xs:enumeration value="SERVIC"/>
-			<xs:enumeration value="NOSERV"/>
-			<xs:enumeration value="SPEED"/>
-			<xs:enumeration value="WAVWAS"/>
-			<xs:enumeration value="PASSIN"/>
-			<xs:enumeration value="ANCHOR"/>
-			<xs:enumeration value="OVRTAK"/>
-			<xs:enumeration value="MINPWR"/>
-			<xs:enumeration value="DREDGE"/>
-			<xs:enumeration value="WORK"/>
-			<xs:enumeration value="EVENT"/>
-			<xs:enumeration value="CHGMAR"/>
-			<xs:enumeration value="CHGSER"/>
-			<xs:enumeration value="SPCMAR"/>
-			<xs:enumeration value="EXERC"/>
-			<xs:enumeration value="LEADEP"/>
-			<xs:enumeration value="LEVDEC"/>
-			<xs:enumeration value="LEVRIS"/>
-			<xs:enumeration value="LIMITA"/>
-			<xs:enumeration value="MISECH"/>
-			<xs:enumeration value="ECDISU"/>
-			<xs:enumeration value="NEWOBJ"/>
-			<xs:enumeration value="CHWWY"/>
-			<xs:enumeration value="CONWWY"/>
-			<xs:enumeration value="DIVER"/>
-			<xs:enumeration value="SPECTR"/>
-			<xs:enumeration value="LOCRUL"/>
-			<xs:enumeration value="VHFCOV"/>
-			<xs:enumeration value="HIGVOL"/>
-			<xs:enumeration value="TURNIN"/>
-			<xs:enumeration value="CONBRE"/>
-			<xs:enumeration value="CONLEN"/>
-			<xs:enumeration value="REMOBJ"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="reason_code_enum">
@@ -771,7 +797,6 @@
 			<xs:enumeration value="EXT"/>
 			<xs:enumeration value="MIN"/>
 			<xs:enumeration value="SOUND"/>
-			<xs:enumeration value="OTHER"/>
 			<xs:enumeration value="STRIKE"/>
 			<xs:enumeration value="FLOMAT"/>
 			<xs:enumeration value="EXPLOS"/>
@@ -792,8 +817,8 @@
 			<xs:enumeration value="LEVRIS"/>
 			<xs:enumeration value="SPCMAR"/>
       <xs:enumeration value="WERMCO"/>
-			<!--obsolete values due to CR 128 but still valid for backwards compatibility -->
-			<xs:enumeration value="INFSER"/>
+      <!--obsolete values due to CR196 but still valid for backwards compatibility -->
+      <xs:enumeration value="OTHER"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="communication_type">
@@ -886,9 +911,14 @@
           <xs:documentation>Overall period of validity</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="object" type="nts:geo_object_type">
+      <xs:element name="network_part" type="nts:geo_network_type" minOccurs="0">
         <xs:annotation>
-          <xs:documentation>Object section</xs:documentation>
+          <xs:documentation>An unambiguous part on the network delimited by two points - message must contain at least one network part or object</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="object" type="nts:geo_object_type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Object section - message must contain at least one network part or object</xs:documentation>
         </xs:annotation>
       </xs:element>
 			<xs:element name="reference_code" type="nts:reference_code_enum" minOccurs="0">
@@ -898,7 +928,7 @@
 			</xs:element>
       <xs:element name="measure" type="nts:measure_type" maxOccurs="unbounded">
         <xs:annotation>
-          <xs:documentation>Measurements (normal or predicted values)</xs:documentation>
+          <xs:documentation>Measurements (real measurements or forecasts)</xs:documentation>
         </xs:annotation>
       </xs:element>
 		</xs:sequence>
@@ -910,9 +940,9 @@
   -->
 	<xs:complexType name="measure_type">
 		<xs:sequence>
-			<xs:element name="predicted" type="xs:boolean">
+			<xs:element name="forecast" type="xs:boolean">
 				<xs:annotation>
-					<xs:documentation>Predicted measurement (1 or true) or real measurement (0 or false)</xs:documentation>
+					<xs:documentation>Forecast (1 or true) or real measurement (0 or false)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="measure_code" type="nts:measure_code_enum">
@@ -922,7 +952,7 @@
 			</xs:element>
 			<xs:element name="value" type="xs:float" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Measured or predicted value</xs:documentation>
+					<xs:documentation>Forecast or real measured value</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="value_min" type="xs:float" minOccurs="0">
@@ -952,7 +982,7 @@
 			</xs:element>
 			<xs:element name="measuredate" type="xs:dateTime">
 				<xs:annotation>
-					<xs:documentation>Date and Time of measurement or predicted value including time zone</xs:documentation>
+					<xs:documentation>Date and Time of forecast or measurement value including time zone</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="difference" type="nts:difference_type" minOccurs="0">
@@ -971,8 +1001,6 @@
 			<xs:enumeration value="VER"/>
 			<xs:enumeration value="LSD"/>
 			<xs:enumeration value="WAL"/>
-			<!-- obsolete values due to CR 151 but still valid for backwards compatibility -->
-			<xs:enumeration value="NOM"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="barrage_code_enum">
@@ -1035,7 +1063,7 @@
       </xs:element>
       <xs:element name="network_part" type="nts:geo_network_type">
         <xs:annotation>
-          <xs:documentation>Fairway section</xs:documentation>
+          <xs:documentation>An unambiguous part on the network delimited by two points</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="ice_condition" type="nts:ice_condition_type" maxOccurs="unbounded">
@@ -1054,7 +1082,7 @@
 		<xs:sequence>
 			<xs:element name="measuredate" type="xs:dateTime">
 				<xs:annotation>
-					<xs:documentation>Date and Time of measurement or prediction including time zone</xs:documentation>
+					<xs:documentation>Date and Time of forecast or measurement including time zone</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="ice_condition_code" type="nts:ice_condition_code_enum" minOccurs="0">
@@ -1164,7 +1192,7 @@
       </xs:element>
       <xs:element name="network_part" type="nts:geo_network_type">
         <xs:annotation>
-          <xs:documentation>Fairway section</xs:documentation>
+          <xs:documentation>An unambiguous part on the network delimited by two points</xs:documentation>
         </xs:annotation>
       </xs:element>
 			<xs:element name="weather_report" type="nts:weather_report_type" maxOccurs="2">
@@ -1181,9 +1209,9 @@
   -->
 	<xs:complexType name="weather_report_type">
 		<xs:sequence>
-      <xs:element name="measuredate" type="xs:dateTime" minOccurs="0">
+      <xs:element name="measuredate" type="xs:dateTime">
         <xs:annotation>
-          <xs:documentation>Date and time of measurement or predicted value including timezone</xs:documentation>
+          <xs:documentation>Date and time of forecast or measurement value including timezone</xs:documentation>
         </xs:annotation>
       </xs:element>
 			<xs:element name="forecast" type="xs:boolean">
@@ -1405,7 +1433,7 @@
     <xs:sequence>
       <xs:element name="network_part" type="nts:geo_network_type" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
-          <xs:documentation>Fairway section -> rename into network_part - a part on the network delimited by two points</xs:documentation>
+          <xs:documentation>An unambiguous part on the network delimited by two points</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="object" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
@@ -1560,7 +1588,7 @@
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
-      <xs:element name="coordinate" type="nts:coordinate_type" minOccurs="0">
+      <xs:element name="coordinate" type="nts:coordinate_type">
         <xs:annotation>
           <xs:documentation>coordinate</xs:documentation>
         </xs:annotation>
@@ -1723,7 +1751,7 @@
 					<xs:documentation>End time of limitation period without time zone</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="interval_code" type="nts:interval_code_enum" minOccurs="0">
+			<xs:element name="interval_code" type="nts:interval_code_enum" default="CON">
 				<xs:annotation>
 					<xs:documentation>Interval for limitation if applicable</xs:documentation>
 				</xs:annotation>
@@ -1747,8 +1775,9 @@
 			<xs:enumeration value="DTI"/>
 			<xs:enumeration value="NTI"/>
 			<xs:enumeration value="RVI"/>
-			<xs:enumeration value="EXC"/>
 			<xs:enumeration value="WRD"/>
+      <!--obsolete values due to CR 196 but still valid for backwards compatibility -->
+      <xs:enumeration value="EXC"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="limitation_code_enum">
@@ -1898,8 +1927,6 @@
 			<xs:enumeration value="m/s"/>
 			<xs:enumeration value="mm/h"/>
 			<xs:enumeration value="°C"/>
-      <xs:enumeration value ="km" />
-      <xs:enumeration value= "nm" />
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>

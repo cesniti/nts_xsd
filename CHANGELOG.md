@@ -1,6 +1,23 @@
 # Changelog
 
 An overview of all changes to the NtS xsd is provided in this file.
+## [4.0.4.1-Hotfix]
+
+### Fixed
+- Correction of regex in ISRS-code restrictions. The locode can contain alphanumeric characters.
+      <xs:simpleType name="isrs_code_type">
+      <xs:annotation>
+        <xs:documentation>ISRS location code, unique identification of the geo object as defined in RIS Index encoding guide</xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string">
+        <xs:length value="20"/>
+        <xs:pattern value="[A-Z]{2}[A-Z2-9]{3}[A-Z0-9]{5}[A-Z0-9]{5}[0-9]{5}" />
+      </xs:restriction>
+      </xs:simpleType>
+- Correction of inconsistancy in XSD - change maxLength of limitation_code_enum from 6 to 10
+        <xs:simpleType name="limitation_code_enum">
+            <xs:restriction base="xs:string">
+              <xs:maxLength value="10"/>
 
 ## [4.0] - Nov 2016
 

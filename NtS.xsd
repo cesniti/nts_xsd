@@ -417,9 +417,25 @@
       WERM
         Use network_part inline with FTM and ICEM message <xs:element name="network_part" type="nts:geo_network_type">
 -->
+<!-- V.4.4 june 2020      
+    CR 193 - Add Geographic Impact of an NtS message
+      Add optional element geographic_impact to network_part and object
+      The following coordinate system must be used: WGS84 latitude/longitude (EPSG:4326)
+      This geographic data is NOT  for navigational purposes
+      
+        <xs:element name="geographic_impact" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Geographical impact</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+-->
 
 <!-- =================================================================================== -->
-<xs:schema xmlns:nts="http://www.ris.eu/nts/4.0.4.3" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ris.eu/nts/4.0.4.3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.0.4.3">
+<xs:schema xmlns:nts="http://www.ris.eu/nts/4.0.4.4" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ris.eu/nts/4.0.4.4" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.0.4.4">
 	<!--
   ===========================================
   = definition of main element RIS_Message  =
@@ -1448,6 +1464,15 @@
           <xs:documentation>Type of geographical object</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="geographic_impact" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Geographical impact</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
 		</xs:sequence>
 	</xs:complexType>
   <xs:complexType name="geo_object_type">
@@ -1471,6 +1496,15 @@
         <xs:annotation>
           <xs:documentation>Route name</xs:documentation>
         </xs:annotation>
+      </xs:element>
+      <xs:element name="geographic_impact" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Geographical impact</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+          </xs:restriction>
+        </xs:simpleType>
       </xs:element>
     </xs:sequence>
   </xs:complexType>

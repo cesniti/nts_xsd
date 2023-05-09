@@ -2,6 +2,24 @@
 
 An overview of all changes to the NtS xsd is provided in this file.
 
+## [4.4] - June 2020
+
+### Added    
+- CR 193 - Add Geographic Impact of an NtS message
+      Add optional element geographic_impact to network_part and object
+      The following coordinate system must be used: WGS84 latitude/longitude (EPSG:4326)
+      This geographic data is NOT  for navigational purposes
+        <xs:element name="geographic_impact" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Geographical impact</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+
+
 ## [4.3] - June 2020
 
 ### Fixed

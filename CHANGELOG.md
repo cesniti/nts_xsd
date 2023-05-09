@@ -2,6 +2,52 @@
 
 An overview of all changes to the NtS xsd is provided in this file.
 
+## [4.2] - Apr 2018
+
+### Changed          
+- CR 187 Make weather_class_code optional in the Weather Related Message (WERM)
+			<xs:element name="weather_class_code" type="nts:weather_class_code_enum" minOccurs="0" maxOccurs="unbounded">
+- CR 190 NtS XSD Limitation Grouping
+			FTM
+			delete 
+				<xs:choice maxOccurs="unbounded">
+						<xs:element name="fairway_section" type="nts:fairway_section_type">
+        		<xs:element name="object" type="nts:object_type">
+			delete 
+				<xs:complexType name="fairway_section_type">
+					<xs:complexType name="object_type">
+			instead
+				  <xs:complexType name="ftm_limitation_group_type">
+					<xs:sequence>
+					  <xs:choice maxOccurs="unbounded">
+						<xs:element name="fairway_section" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
+						  <xs:annotation>
+							<xs:documentation>Fairway section</xs:documentation>
+						  </xs:annotation>
+						</xs:element>
+						<xs:element name="object" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
+						  <xs:annotation>
+							<xs:documentation>Object section</xs:documentation>
+						  </xs:annotation>
+						</xs:element>
+					  </xs:choice>
+					  <xs:element name="limitation_group" type="nts:limitation_group_type" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+						  <xs:documentation>Group of limitations and periods for Fairways and Objects</xs:documentation>
+						</xs:annotation>
+					  </xs:element>
+					</xs:sequence>
+				  </xs:complexType>
+			ICEM
+			Fairway section no longer contains the limitation section
+				<xs:element name="fairway_section" type="nts:geo_object_type">
+			WERM
+			delete <xs:element name="fairway_section" type="nts:fairway_section_werm_type">
+			instead add <xs:element name="fairway_section" type="nts:geo_object_type">	
+			WRM
+			Change geo_object into object to be inline with other messagetypes
+				<xs:element name="object" type="nts:geo_object_type">
+
 ## [4.0] - Nov 2016
 
 ### Added

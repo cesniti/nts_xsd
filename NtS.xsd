@@ -333,8 +333,55 @@
       <xs:element name="position_code" type="nts:position_code_enum" minOccurs="0">
 -->
 
+<!-- V.4.2 Apr 2018 
+          
+    CR 187 Make weather_class_code optional in the Weather Related Message (WERM)
+      <xs:element name="weather_class_code" type="nts:weather_class_code_enum" minOccurs="0" maxOccurs="unbounded">
+		CR 190 NtS XSD Limitation Grouping
+      FTM
+				delete 
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="fairway_section" type="nts:fairway_section_type">
+        		<xs:element name="object" type="nts:object_type">
+        delete 
+          <xs:complexType name="fairway_section_type">
+          <xs:complexType name="object_type">
+				instead
+          <xs:complexType name="ftm_limitation_group_type">
+            <xs:sequence>
+              <xs:choice maxOccurs="unbounded">
+                <xs:element name="fairway_section" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
+                  <xs:annotation>
+                    <xs:documentation>Fairway section</xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="object" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
+                  <xs:annotation>
+                    <xs:documentation>Object section</xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+              </xs:choice>
+              <xs:element name="limitation_group" type="nts:limitation_group_type" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>Group of limitations and periods for Fairways and Objects</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+			ICEM
+				Fairway section no longer contains the limitation section
+          <xs:element name="fairway_section" type="nts:geo_object_type">
+			WERM
+				delete <xs:element name="fairway_section" type="nts:fairway_section_werm_type">
+				instead add <xs:element name="fairway_section" type="nts:geo_object_type">	
+      WRM
+        Change geo_object into object to be inline with other messagetypes
+          <xs:element name="object" type="nts:geo_object_type">
+-->
+
+
 <!-- =================================================================================== -->
-<xs:schema xmlns:nts="http://www.ris.eu/nts/4.0.4.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ris.eu/nts/4.0.4.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.0.4.0">
+<xs:schema xmlns:nts="http://www.ris.eu/nts/4.0.4.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ris.eu/nts/4.0.4.2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.0.4.2">
 	<!--
   ===========================================
   = definition of main element RIS_Message  =
@@ -577,6 +624,8 @@
 					<xs:documentation>Communication channel information</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+      <xs:element name="ftm_limitation_group" type="nts:ftm_limitation_group_type" maxOccurs="unbounded"/>
+      <!--
 			<xs:choice maxOccurs="unbounded">
 				<xs:element name="fairway_section" type="nts:fairway_section_type">
 					<xs:annotation>
@@ -588,7 +637,7 @@
             <xs:documentation>Object section</xs:documentation>
           </xs:annotation>
         </xs:element>
-			</xs:choice>
+			</xs:choice>-->
 		</xs:sequence>
 	</xs:complexType>
 	<!--
@@ -776,7 +825,7 @@
 			<xs:enumeration value="EI"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:complexType name="object_type">
+	<!--<xs:complexType name="object_type">
 		<xs:sequence>
       <xs:element name="geo_object" type="nts:geo_object_type">
         <xs:annotation>
@@ -789,7 +838,7 @@
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-	</xs:complexType>
+	</xs:complexType>-->
 	<!--
   ==========================================
   = definition of wrm_type,                =
@@ -813,7 +862,7 @@
           <xs:documentation>Overall period of validity</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="geo_object" type="nts:geo_object_type">
+      <xs:element name="object" type="nts:geo_object_type">
         <xs:annotation>
           <xs:documentation>Object section</xs:documentation>
         </xs:annotation>
@@ -960,9 +1009,10 @@
           <xs:documentation>Overall period of validity</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="fairway_section" type="nts:fairway_section_type">
+      <xs:element name="fairway_section" type="nts:geo_object_type">
         <xs:annotation>
-          <xs:documentation>Fairway section - the limitation inside the fairway section cannot be used in the ICEM</xs:documentation>
+          <!--<xs:documentation>Fairway section - the limitation inside the fairway section cannot be used in the ICEM</xs:documentation>-->
+          <xs:documentation>Fairway section</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="ice_condition" type="nts:ice_condition_type" maxOccurs="unbounded">
@@ -1089,7 +1139,8 @@
           <xs:documentation>Overall period of validity</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="fairway_section" type="nts:fairway_section_werm_type">
+      <!--<xs:element name="fairway_section" type="nts:fairway_section_werm_type">-->
+      <xs:element name="fairway_section" type="nts:geo_object_type">
         <xs:annotation>
           <xs:documentation>Fairway section</xs:documentation>
         </xs:annotation>
@@ -1106,7 +1157,7 @@
   = types used in definition of werm_type =
   =========================================
   -->
-	<xs:complexType name="fairway_section_werm_type">
+	<!--<xs:complexType name="fairway_section_werm_type">
 		<xs:sequence>
       <xs:element name="geo_object" type="nts:geo_object_type">
         <xs:annotation>
@@ -1114,7 +1165,7 @@
         </xs:annotation>
       </xs:element>
 		</xs:sequence>
-	</xs:complexType>
+	</xs:complexType>-->
 	<xs:complexType name="weather_report_type">
 		<xs:sequence>
       <xs:element name="measuredate" type="xs:dateTime" minOccurs="0">
@@ -1127,7 +1178,7 @@
 					<xs:documentation>Forecast (true or 1) OR Actual report (false or 0)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="weather_class_code" type="nts:weather_class_code_enum" maxOccurs="unbounded">
+			<xs:element name="weather_class_code" type="nts:weather_class_code_enum" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Classification of weather report</xs:documentation>
 				</xs:annotation>
@@ -1337,7 +1388,46 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="fairway_section_type">
+  <!--New data type-->
+  <xs:complexType name="ftm_limitation_group_type">
+    <xs:sequence>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="fairway_section" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
+          <xs:annotation>
+            <xs:documentation>Fairway section</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="object" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
+          <xs:annotation>
+            <xs:documentation>Object section</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:choice>
+      <xs:element name="limitation_group" type="nts:limitation_group_type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Group of limitations and periods for Fairways and Objects</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="limitation_group_type">
+    <xs:sequence>
+      <xs:annotation>
+        <xs:documentation>Group of limitations and periods</xs:documentation>
+      </xs:annotation>
+      <xs:element name="limitation" type="nts:limitation_type" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Fairway section limitations</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="limitation_period" type="nts:limitation_period_type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Limitation periods / intervals</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+	<!--<xs:complexType name="fairway_section_type">
 		<xs:sequence>
       <xs:element name="geo_object" type="nts:geo_object_type">
         <xs:annotation>
@@ -1350,7 +1440,7 @@
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-	</xs:complexType>
+	</xs:complexType>-->
 	<xs:complexType name="geo_object_type">
 		<xs:sequence>
       <xs:element name="id" type="nts:isrs_code_type" maxOccurs="2">
@@ -1474,11 +1564,6 @@
 	</xs:complexType>
 	<xs:complexType name="limitation_type">
 		<xs:sequence>
-			<xs:element name="limitation_period" type="nts:limitation_period_type" minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation>Limitation periods / intervals</xs:documentation>
-				</xs:annotation>
-			</xs:element>
 			<xs:element name="limitation_code" type="nts:limitation_code_enum">
 				<xs:annotation>
 					<xs:documentation>Kind of limitation</xs:documentation>

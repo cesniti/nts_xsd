@@ -337,51 +337,89 @@
           
     CR 187 Make weather_class_code optional in the Weather Related Message (WERM)
       <xs:element name="weather_class_code" type="nts:weather_class_code_enum" minOccurs="0" maxOccurs="unbounded">
-		CR 190 NtS XSD Limitation Grouping
+    CR 190 NtS XSD Limitation Grouping
       FTM
 				delete 
 					<xs:choice maxOccurs="unbounded">
 						<xs:element name="fairway_section" type="nts:fairway_section_type">
         		<xs:element name="object" type="nts:object_type">
-        delete 
-          <xs:complexType name="fairway_section_type">
-          <xs:complexType name="object_type">
-				instead
-          <xs:complexType name="ftm_limitation_group_type">
-            <xs:sequence>
-              <xs:choice maxOccurs="unbounded">
-                <xs:element name="fairway_section" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
-                  <xs:annotation>
-                    <xs:documentation>Fairway section</xs:documentation>
-                  </xs:annotation>
-                </xs:element>
-                <xs:element name="object" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
-                  <xs:annotation>
-                    <xs:documentation>Object section</xs:documentation>
-                  </xs:annotation>
-                </xs:element>
-              </xs:choice>
-              <xs:element name="limitation_group" type="nts:limitation_group_type" minOccurs="0" maxOccurs="unbounded">
-                <xs:annotation>
-                  <xs:documentation>Group of limitations and periods for Fairways and Objects</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-            </xs:sequence>
-          </xs:complexType>
+				instead add <xs:element name="ftm_limitation_group" type="nts:ftm_limitation_group_type" maxOccurs="unbounded"/>
+				instead add <xs:element name="limitation_group" type="nts:limitation_group_type" minOccurs="0" maxOccurs="unbounded">
 			ICEM
 				Fairway section no longer contains the limitation section
-          <xs:element name="fairway_section" type="nts:geo_object_type">
 			WERM
 				delete <xs:element name="fairway_section" type="nts:fairway_section_werm_type">
-				instead add <xs:element name="fairway_section" type="nts:geo_object_type">	
+				instead add <xs:element name="fairway_section" type="nts:fairway_section_type">		
       WRM
         Change geo_object into object to be inline with other messagetypes
           <xs:element name="object" type="nts:geo_object_type">
 -->
-
+<!-- V.4.3 june 2020 
+    
+    Correction of inconsistancy in XSD - change maxLength of limitation_code_enum from 6 to 10
+    	<xs:simpleType name="limitation_code_enum">
+		    <xs:restriction base="xs:string">
+			  <xs:maxLength value="10"/>
+    
+    CR 192 - Self Describing NtS Message
+      Add <xs:complexType name="location_type"> with folowing elements
+        - isrs-code (instead of id)
+        - type_code
+        - un_locode
+        - fairway_section_code
+        - object_reference_code
+        - fairway_hectometre
+        - coordinate
+        
+      Add localisation_name_type: object_name is mandatory, but un_location_name is optional cause dismar/berth without transshipment don't always have a un-location
+        <xs:complexType name="localisation_name_type">
+          <xs:sequence>
+            <xs:element name="un_location_name" type ="nts:name_type" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="object_name" type ="nts:name_type" minOccurs="1" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+        
+      Add object_location_type: for an object it is mandatory to fill in the location_type and the localisation_name, so one knows the name of the object
+        <xs:complexType name="object_location_type">
+          <xs:sequence>
+            <xs:element name="location" type ="nts:location_type" maxOccurs="1" />
+            <xs:element name="localisation_name" type ="nts:localisation_name_type" maxOccurs="1"/>
+          </xs:sequence>
+        </xs:complexType>
+        
+      Add network_point_location_type: a network_part is always delimited by two ISRS locations. network_point_location_type contains ONE of these two points.
+      This element contains the mandatory location_type and the optional localisation_name_type, so it's not mandatory to give an object_name and un_location_name for a dismar
+          <xs:complexType name="network_point_location_type">
+            <xs:sequence>
+              <xs:element name="location" type ="nts:location_type" maxOccurs="1"/>
+              <xs:element name="localisation_name" type ="nts:localisation_name_type" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+          </xs:complexType>
+          
+      Update geo_object_type:
+        - Use <xs:element name="geo_location" type="nts:object_location_type">
+        - fairway_name: mandatory element instead of optional <xs:element name="fairway_name" type="nts:name_type" minOccurs="1" maxOccurs="unbounded">
+        - add route_name: optional element <xs:element name="route_name" type="nts:name_type" minOccurs="0" maxOccurs="unbounded">
+      
+      Add geo_network_type instead of fairwaysection type
+          - Add <xs:element name="geo_location_from" type="nts:network_point_location_type">
+          - Add <xs:element name="geo_location_to" type="nts:network_point_location_type">
+          - fairway_name: mandatory element instead of optional
+          - Add <xs:element name="route_name" type="nts:name_type" minOccurs="0" maxOccurs="unbounded">
+          - Add <xs:element name="type_code" type="nts:type_code_enum">, to define if the network part is a fairway, lake, canal, river
+      
+      FTM
+        Use network_part instead of fairway_section <xs:element name="network_part" type="nts:geo_network_type" minOccurs="0" maxOccurs="unbounded">
+          
+      ICEM
+        Use network_part instead of fairway_section <xs:element name="network_part" type="nts:geo_network_type">
+        
+      WERM
+        Use network_part inline with FTM and ICEM message <xs:element name="network_part" type="nts:geo_network_type">
+-->
 
 <!-- =================================================================================== -->
-<xs:schema xmlns:nts="http://www.ris.eu/nts/4.0.4.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ris.eu/nts/4.0.4.2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.0.4.2">
+<xs:schema xmlns:nts="http://www.ris.eu/nts/4.0.4.3" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ris.eu/nts/4.0.4.3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.0.4.3">
 	<!--
   ===========================================
   = definition of main element RIS_Message  =
@@ -494,7 +532,7 @@
   -->
 	<xs:simpleType name="country_code_enum">
 		<xs:restriction base="xs:string">
-			<xs:maxLength value="2"/>
+      <xs:length value="2"/>
 			<xs:enumeration value="AT"/>
 			<xs:enumeration value="BE"/>
 			<xs:enumeration value="BG"/>
@@ -625,19 +663,6 @@
 				</xs:annotation>
 			</xs:element>
       <xs:element name="ftm_limitation_group" type="nts:ftm_limitation_group_type" maxOccurs="unbounded"/>
-      <!--
-			<xs:choice maxOccurs="unbounded">
-				<xs:element name="fairway_section" type="nts:fairway_section_type">
-					<xs:annotation>
-						<xs:documentation>Fairway section</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-        <xs:element name="object" type="nts:object_type">
-          <xs:annotation>
-            <xs:documentation>Object section</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-			</xs:choice>-->
 		</xs:sequence>
 	</xs:complexType>
 	<!--
@@ -652,7 +677,6 @@
 			<xs:enumeration value="ANNOUN"/>
 			<xs:enumeration value="WARNIN"/>
 			<xs:enumeration value="CANCEL"/>
-			<!-- the following values are added due to CR 128 -->
 			<xs:enumeration value="INFSER"/>
 			<!-- obsolete values due to CR 128 but still valid for backwards compatibility -->
       <xs:enumeration value="OBSTRU"/>
@@ -737,7 +761,6 @@
 			<xs:enumeration value="EXPLOS"/>
 			<xs:enumeration value="ICE"/>
 			<xs:enumeration value="OBSTAC"/>
-			<!--the following values are added due to CR 128-->
 			<xs:enumeration value="CHGMAR"/>
 			<xs:enumeration value="DAMMAR"/>
 			<xs:enumeration value="FALMAT"/>
@@ -752,7 +775,6 @@
 			<xs:enumeration value="REMOBJ"/>
 			<xs:enumeration value="LEVRIS"/>
 			<xs:enumeration value="SPCMAR"/>
-      <!--the following value is added due to CR 155-->
       <xs:enumeration value="WERMCO"/>
 			<!--obsolete values due to CR 128 but still valid for backwards compatibility -->
 			<xs:enumeration value="INFSER"/>
@@ -825,20 +847,6 @@
 			<xs:enumeration value="EI"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--<xs:complexType name="object_type">
-		<xs:sequence>
-      <xs:element name="geo_object" type="nts:geo_object_type">
-        <xs:annotation>
-          <xs:documentation>Geo Information of object</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-			<xs:element name="limitation" type="nts:limitation_type" minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation>Object limitation section</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>-->
 	<!--
   ==========================================
   = definition of wrm_type,                =
@@ -1009,9 +1017,8 @@
           <xs:documentation>Overall period of validity</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="fairway_section" type="nts:geo_object_type">
+      <xs:element name="network_part" type="nts:geo_network_type">
         <xs:annotation>
-          <!--<xs:documentation>Fairway section - the limitation inside the fairway section cannot be used in the ICEM</xs:documentation>-->
           <xs:documentation>Fairway section</xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1139,8 +1146,7 @@
           <xs:documentation>Overall period of validity</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <!--<xs:element name="fairway_section" type="nts:fairway_section_werm_type">-->
-      <xs:element name="fairway_section" type="nts:geo_object_type">
+      <xs:element name="network_part" type="nts:geo_network_type">
         <xs:annotation>
           <xs:documentation>Fairway section</xs:documentation>
         </xs:annotation>
@@ -1157,15 +1163,6 @@
   = types used in definition of werm_type =
   =========================================
   -->
-	<!--<xs:complexType name="fairway_section_werm_type">
-		<xs:sequence>
-      <xs:element name="geo_object" type="nts:geo_object_type">
-        <xs:annotation>
-          <xs:documentation>Geo Information of fairway</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-		</xs:sequence>
-	</xs:complexType>-->
 	<xs:complexType name="weather_report_type">
 		<xs:sequence>
       <xs:element name="measuredate" type="xs:dateTime" minOccurs="0">
@@ -1388,21 +1385,18 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-  <!--New data type-->
   <xs:complexType name="ftm_limitation_group_type">
     <xs:sequence>
-      <xs:choice maxOccurs="unbounded">
-        <xs:element name="fairway_section" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
-          <xs:annotation>
-            <xs:documentation>Fairway section</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="object" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
-          <xs:annotation>
-            <xs:documentation>Object section</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-      </xs:choice>
+      <xs:element name="network_part" type="nts:geo_network_type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Fairway section -> rename into network_part - a part on the network delimited by two points</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="object" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Object section</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="limitation_group" type="nts:limitation_group_type" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>Group of limitations and periods for Fairways and Objects</xs:documentation>
@@ -1427,64 +1421,124 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-	<!--<xs:complexType name="fairway_section_type">
+	<xs:complexType name="geo_network_type">
 		<xs:sequence>
-      <xs:element name="geo_object" type="nts:geo_object_type">
+      <xs:element name="geo_location_from" type="nts:network_point_location_type">
         <xs:annotation>
-          <xs:documentation>Geo information of fairway</xs:documentation>
+          <xs:documentation>Type of geographical object - start of network part</xs:documentation>
         </xs:annotation>
       </xs:element>
-			<xs:element name="limitation" type="nts:limitation_type" minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation>Fairway section limitations</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>-->
-	<xs:complexType name="geo_object_type">
-		<xs:sequence>
-      <xs:element name="id" type="nts:isrs_code_type" maxOccurs="2">
+      <xs:element name="geo_location_to" type="nts:network_point_location_type" >
         <xs:annotation>
-          <xs:documentation>ISRS Location Code of the fairway/object</xs:documentation>
+          <xs:documentation>Type of geographical object - end of network part</xs:documentation>
         </xs:annotation>
       </xs:element>
-			<xs:element name="name">
-				<xs:annotation>
-					<xs:documentation>Local name of the fairway section</xs:documentation>
-				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="256"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-			<xs:element name="type_code" type="nts:type_code_enum" default="FWY">
-				<xs:annotation>
-					<xs:documentation>Type of geographical object</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="position_code" type="nts:position_code_enum" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Describes the position related to the fairway</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="coordinate" type="nts:coordinate_type" minOccurs="0" maxOccurs="2">
-				<xs:annotation>
-					<xs:documentation>Fairway section begin and end coordinates</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="fairway_name" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Waterway name (usefull if no RIS Index is available)</xs:documentation>
-				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="256"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
+      <xs:element name="fairway_name" type="nts:name_type" minOccurs="1" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Waterway name</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="route_name" type="nts:name_type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Route name</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="type_code" type="nts:type_code_enum">
+        <xs:annotation>
+          <xs:documentation>Type of geographical object</xs:documentation>
+        </xs:annotation>
+      </xs:element>
 		</xs:sequence>
 	</xs:complexType>
+  <xs:complexType name="geo_object_type">
+    <xs:sequence>
+      <xs:element name="geo_location" type="nts:object_location_type">
+        <xs:annotation>
+          <xs:documentation>Type of geographical object</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="position_code" type="nts:position_code_enum" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Describes the position related to the fairway</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="fairway_name" type="nts:name_type" minOccurs="1" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Waterway name</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="route_name" type="nts:name_type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Route name</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="network_point_location_type">
+    <xs:sequence>
+      <xs:element name="location" type ="nts:location_type" maxOccurs="1"/>
+      <xs:element name="localisation_name" type ="nts:localisation_name_type" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="object_location_type">
+    <xs:sequence>
+      <xs:element name="location" type ="nts:location_type" maxOccurs="1" />
+      <xs:element name="localisation_name" type ="nts:localisation_name_type" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="location_type">
+    <xs:sequence>
+      <xs:element name="isrs_code" type="nts:isrs_code_type">
+        <xs:annotation>
+          <xs:documentation>ISRS Location Code of the network part or object</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="type_code" type="nts:type_code_enum">
+        <xs:annotation>
+          <xs:documentation>Type of geographical object</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="un_locode">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:length value="5"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="fairway_section_code">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="5"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="object_reference_code">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="5"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="fairway_hectometre">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="5"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="coordinate" type="nts:coordinate_type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>coordinate</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="localisation_name_type">
+    <xs:sequence>
+      <xs:element name="un_location_name" type ="nts:name_type" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="object_name" type ="nts:name_type" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
   <xs:simpleType name="isrs_code_type">
     <xs:annotation>
       <xs:documentation>ISRS location code, unique identification of the geo object as defined in RIS Index encoding guide</xs:documentation>
@@ -1492,6 +1546,18 @@
     <xs:restriction base="xs:string">
       <xs:length value="20"/>
       <xs:pattern value="[A-Z]{2}[A-Z]{3}[A-Z0-9]{5}[A-Z0-9]{5}[0-9]{5}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="name_type">
+    <xs:simpleContent>
+      <xs:extension base="nts:string_256">
+        <xs:attribute name="language" type="nts:language_code_enum" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="string_256">  
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="256"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="type_code_enum">
@@ -1538,8 +1604,8 @@
 			<xs:enumeration value="RES"/>
 			<xs:enumeration value="LKB"/>
 			<xs:enumeration value="BRO"/>
-      <!--the following value is added due to CR 157-->
       <xs:enumeration value="BNS"/>
+      <xs:enumeration value="DMR"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="coordinate_type">
@@ -1653,7 +1719,7 @@
 	</xs:simpleType>
 	<xs:simpleType name="limitation_code_enum">
 		<xs:restriction base="xs:string">
-			<xs:maxLength value="6"/>
+			<xs:maxLength value="10"/>
 			<xs:enumeration value="OBSTRU"/>
 			<xs:enumeration value="PAROBS"/>
 			<xs:enumeration value="DELAY"/>
@@ -1681,9 +1747,7 @@
 			<xs:enumeration value="NOSHORE"/>
 			<xs:enumeration value="CONBRE"/>
 			<xs:enumeration value="CONLEN"/>
-			<!-- the following value is added due to CR 128 -->
 			<xs:enumeration value="LEADEP"/>
-      <!-- the following value is added due to CR 148 -->
       <xs:enumeration value="NOBERT"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -1800,6 +1864,8 @@
 			<xs:enumeration value="m/s"/>
 			<xs:enumeration value="mm/h"/>
 			<xs:enumeration value="°C"/>
+      <xs:enumeration value ="km" />
+      <xs:enumeration value= "nm" />
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>

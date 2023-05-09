@@ -2,6 +2,63 @@
 
 An overview of all changes to the NtS xsd is provided in this file.
 
+## [4.3] - June 2020
+
+### Fixed
+- Correction of inconsistancy in XSD - change maxLength of limitation_code_enum from 6 to 10
+    	<xs:simpleType name="limitation_code_enum">
+		    <xs:restriction base="xs:string">
+			  <xs:maxLength value="10"/>
+
+### Changed   
+- CR 192 - Self Describing NtS Message
+      Add <xs:complexType name="location_type"> with folowing elements
+        - isrs-code (instead of id)
+        - type_code
+        - un_locode
+        - fairway_section_code
+        - object_reference_code
+        - fairway_hectometre
+        - coordinate
+      Add localisation_name_type: object_name is mandatory, but un_location_name is optional cause dismar/berth without transshipment don't always have a un-location
+        <xs:complexType name="localisation_name_type">
+          <xs:sequence>
+            <xs:element name="un_location_name" type ="nts:name_type" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="object_name" type ="nts:name_type" minOccurs="1" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      Add object_location_type: for an object it is mandatory to fill in the location_type and the localisation_name, so one knows the name of the object
+        <xs:complexType name="object_location_type">
+          <xs:sequence>
+            <xs:element name="location" type ="nts:location_type" maxOccurs="1" />
+            <xs:element name="localisation_name" type ="nts:localisation_name_type" maxOccurs="1"/>
+          </xs:sequence>
+        </xs:complexType>
+      Add network_point_location_type: a network_part is always delimited by two ISRS locations. network_point_location_type contains ONE of these two points.
+      This element contains the mandatory location_type and the optional localisation_name_type, so it's not mandatory to give an object_name and un_location_name for a dismar
+          <xs:complexType name="network_point_location_type">
+            <xs:sequence>
+              <xs:element name="location" type ="nts:location_type" maxOccurs="1"/>
+              <xs:element name="localisation_name" type ="nts:localisation_name_type" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+          </xs:complexType>
+      Update geo_object_type:
+        - Use <xs:element name="geo_location" type="nts:object_location_type">
+        - fairway_name: mandatory element instead of optional <xs:element name="fairway_name" type="nts:name_type" minOccurs="1" maxOccurs="unbounded">
+        - add route_name: optional element <xs:element name="route_name" type="nts:name_type" minOccurs="0" maxOccurs="unbounded">
+      Add geo_network_type instead of fairwaysection type
+          - Add <xs:element name="geo_location_from" type="nts:network_point_location_type">
+          - Add <xs:element name="geo_location_to" type="nts:network_point_location_type">
+          - fairway_name: mandatory element instead of optional
+          - Add <xs:element name="route_name" type="nts:name_type" minOccurs="0" maxOccurs="unbounded">
+          - Add <xs:element name="type_code" type="nts:type_code_enum">, to define if the network part is a fairway, lake, canal, river
+      FTM
+        Use network_part instead of fairway_section <xs:element name="network_part" type="nts:geo_network_type" minOccurs="0" maxOccurs="unbounded">
+      ICEM
+        Use network_part instead of fairway_section <xs:element name="network_part" type="nts:geo_network_type">
+      WERM
+        Use network_part inline with FTM and ICEM message <xs:element name="network_part" type="nts:geo_network_type">
+
 ## [4.2] - Apr 2018
 
 ### Changed          

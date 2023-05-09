@@ -332,6 +332,25 @@
     CR 177 Make the “position_code” optional in the limitation section
       <xs:element name="position_code" type="nts:position_code_enum" minOccurs="0">
 -->
+<!-- V.4.0.4.1 02/2021 HOTFIX
+    
+    Correction of regex in ISRS-code restrictions. The locode can contain alphanumeric characters.
+      <xs:simpleType name="isrs_code_type">
+      <xs:annotation>
+        <xs:documentation>ISRS location code, unique identification of the geo object as defined in RIS Index encoding guide</xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string">
+        <xs:length value="20"/>
+        <xs:pattern value="[A-Z]{2}[A-Z2-9]{3}[A-Z0-9]{5}[A-Z0-9]{5}[0-9]{5}" />
+      </xs:restriction>
+      </xs:simpleType>
+  
+    Correction of inconsistancy in XSD - change maxLength of limitation_code_enum from 6 to 10
+    	<xs:simpleType name="limitation_code_enum">
+		    <xs:restriction base="xs:string">
+			  <xs:maxLength value="10"/>
+  
+-->
 
 <!-- =================================================================================== -->
 <xs:schema xmlns:nts="http://www.ris.eu/nts/4.0.4.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ris.eu/nts/4.0.4.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.0.4.0">
@@ -1401,7 +1420,7 @@
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:length value="20"/>
-      <xs:pattern value="[A-Z]{2}[A-Z]{3}[A-Z0-9]{5}[A-Z0-9]{5}[0-9]{5}" />
+      <xs:pattern value="[A-Z]{2}[A-Z2-9]{3}[A-Z0-9]{5}[A-Z0-9]{5}[0-9]{5}" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="type_code_enum">
@@ -1568,7 +1587,7 @@
 	</xs:simpleType>
 	<xs:simpleType name="limitation_code_enum">
 		<xs:restriction base="xs:string">
-			<xs:maxLength value="6"/>
+			<xs:maxLength value="10"/>
 			<xs:enumeration value="OBSTRU"/>
 			<xs:enumeration value="PAROBS"/>
 			<xs:enumeration value="DELAY"/>

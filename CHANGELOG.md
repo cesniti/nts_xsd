@@ -1,7 +1,73 @@
 # Changelog
 
 An overview of all changes to the NtS xsd is provided in this file.
-## [4.0.4.1-Hotfix]
+
+## [4.6] - April 2021
+
+### Changed
+- CR 198 - Improvement of withdrawal process for FTM limitations and messages
+		Add notice withdrawn flag, to indicate that the entire message is withdrawn.
+          <xs:element name="notice_withdrawn" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Notice Withdrawn flag set to "1" when the message is Withdrawn. The subject code of previous version must remain the same.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+     	Add withdrawn_time, to indicate a limitation period is withdrawn
+          <xs:element name="withdrawn_time" type="xs:dateTime" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Date and time of withdrawal including time zone</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+		subject_code_enum
+			de-activate <xs:enumeration value="CANCEL"/>
+- CR 199 - Amendment of format of geo-coordinates in NtS messages  
+ 	    <xs:complexType name="coordinate_type">
+		    <xs:sequence>
+			    <xs:element name="lat">
+				    <xs:simpleType>
+					    <xs:restriction base="xs:float"> 
+					    </xs:restriction>
+				    </xs:simpleType>
+			    </xs:element>
+			    <xs:element name="long">
+				    <xs:simpleType>
+					    <xs:restriction base="xs:float">
+					    </xs:restriction>
+				    </xs:simpleType>
+			    </xs:element>
+		    </xs:sequence>
+	    </xs:complexType>   
+- CR 201 -  Support for multiple permissible dimension combinations for vessels/convoys in FTM 
+		Change of value float to nts:value_type
+          <xs:element name="value" type="nts:value_type" minOccurs="0" maxOccurs="4">
+            <xs:annotation>
+              <xs:documentation>Value of limitation (i.e.  max draught)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:complexType name="value_type">
+            <xs:annotation>
+              <xs:documentation>Value of the limitation, with optional type to indicate the size of a vessel/convoy</xs:documentation>
+            </xs:annotation>
+            <xs:simpleContent>
+              <xs:extension base="xs:float">
+                <xs:attribute name="dimension_type" type="nts:dimension_type_code_enum" use="optional" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+          <xs:simpleType name="dimension_type_code_enum">
+            <xs:restriction base="xs:string">
+              <xs:maxLength value="3"/>
+              <xs:enumeration value="LEN"/>
+              <xs:enumeration value="BRE"/>
+              <xs:enumeration value="HEI"/>
+              <xs:enumeration value="DRA"/>
+            </xs:restriction>
+          </xs:simpleType>
+		Add <xs:enumeration value="PERDIM" /> in limitation_code_enum  
+- Changed the namespace to https://ris.cesni.eu/_assets/NtS_XSD/4.0.4.6
+
+
+## [4.0.4.1-Hotfix] - Feb 2021
 
 ### Fixed
 - Correction of regex in ISRS-code restrictions. The locode can contain alphanumeric characters.

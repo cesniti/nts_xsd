@@ -2,12 +2,12 @@
 <!-- =================================================================================== -->
 <!-- Notices to Skippers XSD used to distribute info about fairways or objects on a fairway -->
 <!-- Notices can be: -->
-<!-- - ftm = Fairway related messages, nautical notices to the skippers related to fairways and or objects on fairways -->
-<!-- - wrm = Water related messages, info about water levels etc. related to objects on fairways -->
-<!-- - icem = Ice related messages, info about ice conditions on a fairway -->
-<!-- - werm = Weather related messages, info about weather (wind, rain etc.) conditions on a fairway -->
+<!-- - FTM = Fairway related messages, nautical notices to the skippers related to fairways and or objects on fairways -->
+<!-- - WRM = Water related messages, info about water levels etc. related to objects on fairways -->
+<!-- - ICEM = Ice related messages, info about ice conditions on a fairway -->
+<!-- - WERM = Weather related messages, info about weather (wind, rain etc.) conditions on a fairway -->
 <!-- -->
-<!-- Journaal, Release notes: -->
+<!-- Journal, Release notes: -->
 <!-- -->
 <!-- V.2.7   September 2006:  First release  -->
 <!-- V.2.8   May 2007:  Weather related message section added -->
@@ -84,7 +84,7 @@
 		       add <xs:enumeration value="WOC"/>
 	      CR 104 update reason_code_enum with the value 'ICE' for ice:
 		       add <xs:enumeration value="ICE"/>
-	    	CR 105 update target_group_code_enum with the value 'MOV' for motorized vessels and 'NMV' for non motorized vessels:
+	    	CR 105 update target_group_code_enum with the value 'MOV' for motorized vessels and 'NMV' for non-motorized vessels:
 		       add <xs:enumeration value="MOV"/>
 			     add <xs:enumeration value="NMV"/>
 	    	CR 106 update reason_code_enum with the value 'OBSTAC' for obstacle:
@@ -147,7 +147,7 @@
             "LEVDEC", "LEVRIS", "LIMITA", "MISECH", "ECDISU", "NEWOBJ", "CHWWY", "CONWWY", "DIVER", "SPECTR", "LOCRUL", "VHFCOV", "HIGVOL", "TURNIN",
             "CONBRE", "CONLEN", "REMOBJ"
 
-    CR 130 update geo_object_type, use the ISRS code for the unique identification of the geo object in the element "id" in geo_object_type:
+    CR 130 update geo_object_type, use the ISRS Location Code for the unique identification of the geo object in the element "id" in geo_object_type:
 			<xs:element name="id" maxOccurs="2">
 				<xs:annotation>
 					<xs:documentation>Unique identification of the geo object, country specific</xs:documentation>
@@ -303,7 +303,7 @@
   Add simple type "isrs_code_type" in XSD
         <xs:simpleType name="isrs_code_type">
           <xs:annotation>
-            <xs:documentation>ISRS location code, unique identification of the geo object as defined in RIS Index encoding guide</xs:documentation>
+            <xs:documentation>ISRS Location Code, unique identification of the geo object as defined in RIS Index encoding guide</xs:documentation>
           </xs:annotation>
           <xs:restriction base="xs:string">
           <xs:length value="20"/>
@@ -354,7 +354,7 @@
         Change geo_object into object to be inline with other messagetypes
           <xs:element name="object" type="nts:geo_object_type">
 -->
-<!-- V.4.3 june 2020 
+<!-- V.4.3 June 2020 
     
     Correction of inconsistancy in XSD - change maxLength of limitation_code_enum from 6 to 10
     	<xs:simpleType name="limitation_code_enum">
@@ -362,7 +362,7 @@
 			  <xs:maxLength value="10"/>
     
     CR 192 - Self Describing NtS Message
-      Add <xs:complexType name="location_type"> with folowing elements
+      Add <xs:complexType name="location_type"> with following elements
         - isrs-code (instead of id)
         - type_code
         - un_locode
@@ -417,7 +417,7 @@
       WERM
         Use network_part inline with FTM and ICEM message <xs:element name="network_part" type="nts:geo_network_type">
 -->
-<!-- V.4.4 june 2020      
+<!-- V.4.4 June 2020      
     CR 193 - Add Geographic Impact of an NtS message
       Add optional element geographic_impact to network_part and object
       The following coordinate system must be used: WGS84 latitude/longitude (EPSG:4326)
@@ -425,7 +425,7 @@
       
         <xs:element name="geographic_impact" minOccurs="0">
           <xs:annotation>
-            <xs:documentation>Geographical impact</xs:documentation>
+            <xs:documentation>Geographical impact via coordinates in WKT (Well-Known-Text) format</xs:documentation>
           </xs:annotation>
           <xs:simpleType>
             <xs:restriction base="xs:string">
@@ -439,7 +439,7 @@
     Correction of regex in ISRS-code restrictions. The locode can contain alphanumeric characters.
       <xs:simpleType name="isrs_code_type">
       <xs:annotation>
-        <xs:documentation>ISRS location code, unique identification of the geo object as defined in RIS Index encoding guide</xs:documentation>
+        <xs:documentation>ISRS Location Code, unique identification of the geo object as defined in RIS Index encoding guide</xs:documentation>
       </xs:annotation>
       <xs:restriction base="xs:string">
         <xs:length value="20"/>
@@ -453,7 +453,7 @@
 			  <xs:maxLength value="10"/>
   
 -->        
-<!-- V.4.5 oct 2020  
+<!-- V.4.5 Oct 2020  
     
     CR 195 - Introduce network_part and object to WRM to comply with the structure of other NtS-messages
     - Changed object in WRM to optional & add network part
@@ -500,7 +500,7 @@
     - Rename preticted to forecast in measure_type
       <xs:element name="forecast" type="xs:boolean">
 				<xs:annotation>
-					<xs:documentation>Forecast (1 or true) or real measurement (0 or false)</xs:documentation>
+					<xs:documentation>Forecast (true) or real measurement (false)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
     
@@ -519,26 +519,7 @@
 			</xs:element>
 
 -->
-<!-- V.4.6 april 2021  
-    CR 198 - Improvement of withdrawal process for FTM limitations and messages
-    - Add notice withdrawn flag, to indicate that the entire message is withdrawn.
-        
-          <xs:element name="notice_withdrawn" type="xs:boolean" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Notice Withdrawn flag set to "1" when the message is Withdrawn. The subject code of previous version must remain the same.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-
-    - Add withdrawn_time, to indicate a limitation period is withdrawn
-          <xs:element name="withdrawn_time" type="xs:dateTime" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Date and time of withdrawal including time zone</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        
-    - subject_code_enum
-      de-activate <xs:enumeration value="CANCEL"/>
-	        
+<!-- V.4.6 April 2021          
     CR 199 - Amendment of format of geo-coordinates in NtS messages  
  	    <xs:complexType name="coordinate_type">
 		    <xs:sequence>
@@ -590,6 +571,26 @@
     
     - Changed the namespace to https://ris.cesni.eu/_assets/NtS_XSD/4.0.4.6
     
+-->
+<!-- V.4.7 June 2021  
+    CR 198 - Improvement of withdrawal process for FTM limitations and messages
+    - Add notice withdrawn flag, to indicate that the entire message is withdrawn.
+        
+          <xs:element name="notice_withdrawn" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Notice Withdrawn flag set to "1" when the message is Withdrawn. The subject code of previous version must remain the same.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+
+    - Add withdrawn_time, to indicate a limitation period is withdrawn
+          <xs:element name="withdrawn_time" type="xs:dateTime" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Date and time of withdrawal including time zone</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        
+    - subject_code_enum
+      de-activate <xs:enumeration value="CANCEL"/>
 -->
 
 <!-- =================================================================================== -->

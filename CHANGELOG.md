@@ -6,6 +6,7 @@ An overview of all changes to the NtS xsd is provided in this file.
 
 ### Changed
 - Changed the namespace to https://ris.cesni.eu/_assets/NtS_XSD/5.0.5.0
+- Journal removed from xsd file
 
 
 ## [4.6] - April 2021

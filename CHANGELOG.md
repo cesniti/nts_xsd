@@ -2,7 +2,7 @@
 
 An overview of all changes to the NtS xsd is provided in this file.
 
-## [Unreleased]
+## [5.0] - July 2021
 
 ### Changed
 - Changed the namespace to https://ris.cesni.eu/_assets/NtS_XSD/5.0.5.0

@@ -584,91 +584,40 @@
   -->
 	<xs:complexType name="ice_condition_type">
 		<xs:sequence>
-			<xs:element name="measuredate" type="xs:dateTime">
-				<xs:annotation>
-					<xs:documentation>Date and Time of forecast or measurement including time zone</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="ice_condition_code" type="nts:ice_condition_code_enum" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Condition code</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="ice_accessibility_code" type="nts:ice_accessibility_code_enum" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Accessibility code </xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="ice_classification_code" type="nts:ice_classification_code_enum" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Classification code </xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="ice_situation_code" type="nts:ice_situation_code_enum" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Situation code </xs:documentation>
-				</xs:annotation>
-			</xs:element>
+      <xs:element name="ice_code_general" type="nts:ice_code_general_enum">
+        <xs:annotation>
+          <xs:documentation>General Ice Code, to indicate the impact because of ice</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ice_code_detail" type="nts:ice_code_detail_enum" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Additional, detailed ice codes</xs:documentation>
+        </xs:annotation>
+      </xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:simpleType name="ice_condition_code_enum">
+	<xs:simpleType name="ice_code_general_enum">
 		<xs:restriction base="xs:string">
-			<xs:maxLength value="1"/>
-			<xs:enumeration value="A"/>
-			<xs:enumeration value="B"/>
-			<xs:enumeration value="C"/>
-			<xs:enumeration value="D"/>
-			<xs:enumeration value="E"/>
-			<xs:enumeration value="F"/>
-			<xs:enumeration value="G"/>
-			<xs:enumeration value="H"/>
-			<xs:enumeration value="K"/>
-			<xs:enumeration value="L"/>
-			<xs:enumeration value="M"/>
-			<xs:enumeration value="P"/>
-			<xs:enumeration value="R"/>
-			<xs:enumeration value="S"/>
-			<xs:enumeration value="U"/>
-			<xs:enumeration value="O"/>
-			<xs:enumeration value="V"/>
+		  <xs:maxLength value="1"/>
+		  <xs:enumeration value="A"/>
+		  <xs:enumeration value="B"/>
+		  <xs:enumeration value="C"/>
+		  <xs:enumeration value="E"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="ice_accessibility_code_enum">
+	<xs:simpleType name="ice_code_detail_enum">
 		<xs:restriction base="xs:string">
-			<xs:maxLength value="1"/>
-			<xs:enumeration value="A"/>
-			<xs:enumeration value="B"/>
-			<xs:enumeration value="F"/>
-			<xs:enumeration value="L"/>
-			<xs:enumeration value="C"/>
-			<xs:enumeration value="D"/>
-			<xs:enumeration value="E"/>
-			<xs:enumeration value="G"/>
-			<xs:enumeration value="H"/>
-			<xs:enumeration value="M"/>
-			<xs:enumeration value="K"/>
-			<xs:enumeration value="T"/>
-			<xs:enumeration value="P"/>
-			<xs:enumeration value="V"/>
-			<xs:enumeration value="X"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="ice_classification_code_enum">
-		<xs:restriction base="xs:string">
-			<xs:maxLength value="1"/>
-			<xs:enumeration value="A"/>
-			<xs:enumeration value="B"/>
-			<xs:enumeration value="C"/>
-			<xs:enumeration value="D"/>
-			<xs:enumeration value="E"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="ice_situation_code_enum">
-		<xs:restriction base="xs:string">
-			<xs:maxLength value="3"/>
-			<xs:enumeration value="NOL"/>
-			<xs:enumeration value="LIM"/>
-			<xs:enumeration value="NON"/>
+		  <xs:maxLength value="1"/>
+		  <xs:enumeration value="A"/>
+		  <xs:enumeration value="B"/>
+		  <xs:enumeration value="C"/>
+		  <xs:enumeration value="D"/>
+		  <xs:enumeration value="E"/>
+		  <xs:enumeration value="F"/>
+		  <xs:enumeration value="G"/>
+		  <xs:enumeration value="H"/>
+		  <xs:enumeration value="I"/>
+		  <xs:enumeration value="J"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!--
@@ -1267,6 +1216,11 @@
       <xs:element name="target_group" type="nts:target_group_type" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>Target group information</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+	  <xs:element name="ice_condition" type="nts:ice_condition_type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Ice conditions</xs:documentation>
         </xs:annotation>
       </xs:element>
 		</xs:sequence>

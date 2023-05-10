@@ -690,7 +690,7 @@
 			</xs:element>
 			<xs:element name="language_code" type="nts:language_code_enum">
 				<xs:annotation>
-					<xs:documentation>Original language used in the textual info. (contents)</xs:documentation>
+					<xs:documentation>Original language used in the textual info (contents)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="district" minOccurs="0">
@@ -740,13 +740,13 @@
 			<xs:enumeration value="LU"/>
 			<xs:enumeration value="LV"/>
 			<xs:enumeration value="MD"/>
-      <xs:enumeration value="ME"/>
+			<xs:enumeration value="ME"/>
 			<xs:enumeration value="MT"/>
 			<xs:enumeration value="NL"/>
 			<xs:enumeration value="PL"/>
 			<xs:enumeration value="PT"/>
 			<xs:enumeration value="RO"/>
-      <xs:enumeration value="RS"/>
+			<xs:enumeration value="RS"/>
 			<xs:enumeration value="SE"/>
 			<xs:enumeration value="SI"/>
 			<xs:enumeration value="SK"/>
@@ -844,7 +844,7 @@
 			</xs:element>
       <xs:element name="ftm_limitation_group" type="nts:ftm_limitation_group_type" maxOccurs="unbounded">
         <xs:annotation>
-          <xs:documentation>ftm limitation group must contain at least one network_part or object</xs:documentation>
+          <xs:documentation>FTM limitation group must contain at least one network_part or object</xs:documentation>
         </xs:annotation>
       </xs:element>
       
@@ -1041,7 +1041,7 @@
 		<xs:sequence>
 			<xs:element name="forecast" type="xs:boolean">
 				<xs:annotation>
-					<xs:documentation>Forecast (1 or true) or real measurement (0 or false)</xs:documentation>
+					<xs:documentation>Forecast (true) or real measurement (false)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="measure_code" type="nts:measure_code_enum">
@@ -1066,7 +1066,7 @@
 			</xs:element>
       <xs:element name="unit" type="nts:unit_enum" minOccurs="0">
         <xs:annotation>
-          <xs:documentation>Unit of the water related value</xs:documentation>
+          <xs:documentation>Unit of the water related value (cm, m3/s, h, km/h, kW, m/s, mm/h, °C)</xs:documentation>
         </xs:annotation>
       </xs:element>
 			<xs:element name="barrage_code" type="nts:barrage_code_enum" minOccurs="0">
@@ -1315,7 +1315,7 @@
       </xs:element>
 			<xs:element name="forecast" type="xs:boolean">
 				<xs:annotation>
-					<xs:documentation>Forecast (true or 1) OR Actual report (false or 0)</xs:documentation>
+					<xs:documentation>Forecast (true) OR Actual report (false)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="weather_class_code" type="nts:weather_class_code_enum" minOccurs="0" maxOccurs="unbounded">
@@ -1380,7 +1380,7 @@
       </xs:element>
       <xs:element name="unit" type="nts:unit_enum" minOccurs="0">
         <xs:annotation>
-          <xs:documentation>Unit of the value</xs:documentation>
+          <xs:documentation>Unit of the value (cm, m3/s, h, km/h, kW, m/s, mm/h, °C)</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="weather_category_code" type="nts:weather_category_code_enum" minOccurs="0">
@@ -1554,7 +1554,7 @@
       </xs:annotation>
       <xs:element name="limitation" type="nts:limitation_type" maxOccurs="unbounded">
         <xs:annotation>
-          <xs:documentation>Fairway section limitations</xs:documentation>
+          <xs:documentation>Fairway section or object limitations</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="limitation_period" type="nts:limitation_period_type" minOccurs="0" maxOccurs="unbounded">
@@ -1578,12 +1578,12 @@
       </xs:element>
       <xs:element name="fairway_name" type="nts:name_type" minOccurs="1" maxOccurs="unbounded">
         <xs:annotation>
-          <xs:documentation>Waterway name</xs:documentation>
+          <xs:documentation>Waterway name - optional in different languages</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="route_name" type="nts:name_type" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
-          <xs:documentation>Route name</xs:documentation>
+          <xs:documentation>Route name - optional in different languages</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="type_code" type="nts:type_code_enum">
@@ -1593,7 +1593,7 @@
       </xs:element>
       <xs:element name="geographic_impact" minOccurs="0">
         <xs:annotation>
-          <xs:documentation>Geographical impact</xs:documentation>
+          <xs:documentation>Geographical impact via coordinates in WKT (Well-Known-Text) format</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="xs:string">
@@ -1616,17 +1616,17 @@
       </xs:element>
       <xs:element name="fairway_name" type="nts:name_type" minOccurs="1" maxOccurs="unbounded">
         <xs:annotation>
-          <xs:documentation>Waterway name</xs:documentation>
+          <xs:documentation>Waterway name - optional in different languages</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="route_name" type="nts:name_type" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
-          <xs:documentation>Route name</xs:documentation>
+          <xs:documentation>Route name - optional in different languages</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="geographic_impact" minOccurs="0">
         <xs:annotation>
-          <xs:documentation>Geographical impact</xs:documentation>
+          <xs:documentation>Geographical impact via coordinates in WKT (Well-Known-Text) format</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="xs:string">
@@ -1637,14 +1637,30 @@
   </xs:complexType>
   <xs:complexType name="network_point_location_type">
     <xs:sequence>
-      <xs:element name="location" type ="nts:location_type" maxOccurs="1"/>
-      <xs:element name="localisation_name" type ="nts:localisation_name_type" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="location" type ="nts:location_type" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Detailed information of geographical object - extracted from RIS Index</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="localisation_name" type ="nts:localisation_name_type" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Local and translated localisation names of the geographical object</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="object_location_type">
     <xs:sequence>
-      <xs:element name="location" type ="nts:location_type" maxOccurs="1" />
-      <xs:element name="localisation_name" type ="nts:localisation_name_type" maxOccurs="1"/>
+      <xs:element name="location" type ="nts:location_type" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Detailed informtion of geographical object - extracted from RIS Index</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="localisation_name" type ="nts:localisation_name_type" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Local and translated localisation names of the geographical object</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="location_type">
@@ -1660,6 +1676,9 @@
         </xs:annotation>
       </xs:element>
       <xs:element name="un_locode">
+        <xs:annotation>
+          <xs:documentation>UN Locode of geographical object - extracted from RIS Index</xs:documentation>
+        </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="xs:string">
             <xs:length value="5"/>
@@ -1667,6 +1686,9 @@
         </xs:simpleType>
       </xs:element>
       <xs:element name="fairway_section_code">
+        <xs:annotation>
+          <xs:documentation>Fairway section of geographical object - extracted from RIS Index</xs:documentation>
+        </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="xs:string">
             <xs:maxLength value="5"/>
@@ -1674,6 +1696,9 @@
         </xs:simpleType>
       </xs:element>
       <xs:element name="object_reference_code">
+        <xs:annotation>
+          <xs:documentation>Object code of geographical object - extracted from RIS Index</xs:documentation>
+        </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="xs:string">
             <xs:maxLength value="5"/>
@@ -1681,6 +1706,9 @@
         </xs:simpleType>
       </xs:element>
       <xs:element name="fairway_hectometre">
+        <xs:annotation>
+          <xs:documentation>Fairway hectometre of geographical object - extracted from RIS Index</xs:documentation>
+        </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="xs:string">
             <xs:maxLength value="5"/>
@@ -1689,20 +1717,28 @@
       </xs:element>
       <xs:element name="coordinate" type="nts:coordinate_type">
         <xs:annotation>
-          <xs:documentation>coordinate</xs:documentation>
+          <xs:documentation>Coordinate</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="localisation_name_type">
     <xs:sequence>
-      <xs:element name="un_location_name" type ="nts:name_type" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="object_name" type ="nts:name_type" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="un_location_name" type ="nts:name_type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>UN Location name of geographical object - optional in different languages</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="object_name" type ="nts:name_type" minOccurs="1" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Object name of geographical object - optional in different languages</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
   <xs:simpleType name="isrs_code_type">
     <xs:annotation>
-      <xs:documentation>ISRS location code, unique identification of the geo object as defined in RIS Index encoding guide</xs:documentation>
+      <xs:documentation>ISRS Location Code, unique identification of the geo object as defined in RIS Index encoding guide</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:length value="20"/>
@@ -1772,12 +1808,18 @@
 	<xs:complexType name="coordinate_type">
 		<xs:sequence>
 			<xs:element name="lat">
+        <xs:annotation>
+          <xs:documentation>Latitude, encoded according to WGS 1984 (EPSG:4326) and presented in degrees with six decimals [d]d.dddddd (latitude)</xs:documentation>
+        </xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:float"> 
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 			<xs:element name="long">
+        <xs:annotation>
+          <xs:documentation>Longitude, encoded according to WGS 1984 (EPSG:4326) and presented in degrees with six decimals [d][d]d.dddddd (longitude)</xs:documentation>
+        </xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:float">
 					</xs:restriction>
@@ -1804,7 +1846,7 @@
       </xs:element>
       <xs:element name="unit" type="nts:unit_enum" minOccurs="0">
         <xs:annotation>
-          <xs:documentation>Unit of the value of the limitation</xs:documentation>
+          <xs:documentation>Unit of the value of the limitation (cm, m3/s, h, km/h, kW, m/s, mm/h, °C)</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="reference_code" type="nts:reference_code_enum" minOccurs="0">

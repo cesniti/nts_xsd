@@ -227,15 +227,10 @@
           <xs:documentation>Overall period of validity</xs:documentation>
         </xs:annotation>
       </xs:element>
-			<xs:element name="contents" minOccurs="0">
+			<xs:element name="contents" type="nts:multilanguage500_type" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Additional information in local language</xs:documentation>
 				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="500"/>
-					</xs:restriction>
-				</xs:simpleType>
 			</xs:element>
 			<xs:element name="reason_code" type="nts:reason_code_enum" minOccurs="0">
 				<xs:annotation>
@@ -337,15 +332,10 @@
 					<xs:documentation>Communication code (telephone, VHF etc.)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="number" minOccurs="0">
+			<xs:element name="number" type="nts:multilanguage256_type" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Telephone, VHF number (including callsign), e-mail address, URL or teletext</xs:documentation>
 				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="128"/>
-					</xs:restriction>
-				</xs:simpleType>
 			</xs:element>
       <xs:element name="label" minOccurs="0">
         <xs:annotation>
@@ -357,15 +347,10 @@
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
-      <xs:element name="remark" minOccurs="0">
+      <xs:element name="remark" type="nts:multilanguage1024_type" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Additional remarks concerning the communication</xs:documentation>
         </xs:annotation>
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:maxLength value="1024"/>
-          </xs:restriction>
-        </xs:simpleType>
       </xs:element>
     </xs:sequence>
 	</xs:complexType>
@@ -981,12 +966,12 @@
           <xs:documentation>Type of geographical object - end of network part</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="fairway_name" type="nts:name_type" minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="fairway_name" type="nts:multilanguage256_type" minOccurs="1" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>Waterway name - optional in different languages</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="route_name" type="nts:name_type" minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="route_name" type="nts:multilanguage256_type" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>Route name - optional in different languages</xs:documentation>
         </xs:annotation>
@@ -1019,12 +1004,12 @@
           <xs:documentation>Describes the position related to the fairway</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="fairway_name" type="nts:name_type" minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="fairway_name" type="nts:multilanguage256_type" minOccurs="1" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>Waterway name - optional in different languages</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="route_name" type="nts:name_type" minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="route_name" type="nts:multilanguage256_type" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>Route name - optional in different languages</xs:documentation>
         </xs:annotation>
@@ -1129,12 +1114,12 @@
   </xs:complexType>
   <xs:complexType name="localisation_name_type">
     <xs:sequence>
-      <xs:element name="un_location_name" type ="nts:name_type" minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="un_location_name" type ="nts:multilanguage256_type" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>UN Location name of geographical object - optional in different languages</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="object_name" type ="nts:name_type" minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="object_name" type ="nts:multilanguage256_type" minOccurs="1" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>Object name of geographical object - optional in different languages</xs:documentation>
         </xs:annotation>
@@ -1150,9 +1135,23 @@
       <xs:pattern value="[A-Z]{2}[A-Z2-9]{3}[A-Z0-9]{5}[A-Z0-9]{5}[0-9]{5}" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:complexType name="name_type">
+  <xs:complexType name="multilanguage256_type">
     <xs:simpleContent>
       <xs:extension base="nts:string_256">
+        <xs:attribute name="language" type="nts:language_code_enum" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="multilanguage500_type">
+    <xs:simpleContent>
+      <xs:extension base="nts:string_500">
+        <xs:attribute name="language" type="nts:language_code_enum" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="multilanguage1024_type">
+    <xs:simpleContent>
+      <xs:extension base="nts:string_1024">
         <xs:attribute name="language" type="nts:language_code_enum" use="optional" />
       </xs:extension>
     </xs:simpleContent>
@@ -1160,6 +1159,16 @@
   <xs:simpleType name="string_256">  
     <xs:restriction base="xs:string">
       <xs:maxLength value="256"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string_500">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="500"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string_1024">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="1024"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="type_code_enum">

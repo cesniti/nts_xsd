@@ -2,6 +2,11 @@
 
 An overview of all changes to the NtS xsd is provided in this file.
 
+## [Unreleased]
+
+### Added
+- CR 203 - Addition of RIS_ID to NtS messages LocationType
+
 ## [5.0] - July 2021
 
 ### Changed

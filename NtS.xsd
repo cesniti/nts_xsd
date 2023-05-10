@@ -1317,6 +1317,9 @@
 		</xs:sequence>
 	</xs:complexType>
   <xs:simpleType name="interval_code_enum">
+		<xs:annotation>
+			<xs:documentation>Value 'EXC' is obsolete per CR-196. Values 'DTI', 'NTI', 'RVI' and 'WRD' are obsolete per CR-204.</xs:documentation>
+		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:maxLength value="3"/>
 			<xs:enumeration value="CON"/>
@@ -1330,12 +1333,13 @@
 			<xs:enumeration value="THU"/>
 			<xs:enumeration value="FRI"/>
 			<xs:enumeration value="SAT"/>
+			<!-- obsolete values due to CR 204 but still valid for backwards compatibility -->
 			<xs:enumeration value="DTI"/>
 			<xs:enumeration value="NTI"/>
 			<xs:enumeration value="RVI"/>
 			<xs:enumeration value="WRD"/>
-      <!--obsolete values due to CR 196 but still valid for backwards compatibility -->
-      <xs:enumeration value="EXC"/>
+			<!--obsolete values due to CR 196 but still valid for backwards compatibility -->
+			<xs:enumeration value="EXC"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="limitation_code_enum">
@@ -1449,22 +1453,26 @@
     </xs:sequence>
   </xs:complexType>
   <xs:simpleType name="target_group_code_enum">
+	<xs:annotation>
+		<xs:documentation>Values 'COM', 'PUS', 'NNU', 'LOA' and 'WOC' are obsolete per CR-204.</xs:documentation>
+	</xs:annotation>
     <xs:restriction base="xs:string">
       <xs:maxLength value="3"/>
       <xs:enumeration value="ALL"/>
       <xs:enumeration value="CDG"/>
-      <xs:enumeration value="COM"/>
       <xs:enumeration value="PAX"/>
       <xs:enumeration value="PLE"/>
       <xs:enumeration value="CNV"/>
-      <xs:enumeration value="PUS"/>
-      <xs:enumeration value="NNU"/>
-      <xs:enumeration value="LOA"/>
       <xs:enumeration value="SMA"/>
       <xs:enumeration value="CND"/>
-      <xs:enumeration value="WOC"/>
       <xs:enumeration value="MOV"/>
       <xs:enumeration value="NMV"/>
+	  <!-- obsolete values due to CR-204 but kept for backwards compatibility -->
+	  <xs:enumeration value="COM"/>
+	  <xs:enumeration value="PUS"/>
+      <xs:enumeration value="NNU"/>
+      <xs:enumeration value="LOA"/>
+	  <xs:enumeration value="WOC"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="direction_code_enum">

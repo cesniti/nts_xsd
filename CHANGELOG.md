@@ -2,6 +2,11 @@
 
 An overview of all changes to the NtS xsd is provided in this file.
 
+## [Unreleased]
+
+### Changed
+- CR 207 - Use of iCalendar in Limitation Period
+
 ## [5.0] - July 2021
 
 ### Changed

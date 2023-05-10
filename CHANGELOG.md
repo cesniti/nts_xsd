@@ -13,64 +13,14 @@ An overview of all changes to the NtS xsd is provided in this file.
 
 ### Changed
 - CR 198 - Improvement of withdrawal process for FTM limitations and messages
-		Add notice withdrawn flag, to indicate that the entire message is withdrawn.
-          <xs:element name="notice_withdrawn" type="xs:boolean" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Notice Withdrawn flag set to "1" when the message is Withdrawn. The subject code of previous version must remain the same.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-     	Add withdrawn_time, to indicate a limitation period is withdrawn
-          <xs:element name="withdrawn_time" type="xs:dateTime" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Date and time of withdrawal including time zone</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-		subject_code_enum
-			de-activate <xs:enumeration value="CANCEL"/>
-- CR 199 - Amendment of format of geo-coordinates in NtS messages  
- 	    <xs:complexType name="coordinate_type">
-		    <xs:sequence>
-			    <xs:element name="lat">
-				    <xs:simpleType>
-					    <xs:restriction base="xs:float"> 
-					    </xs:restriction>
-				    </xs:simpleType>
-			    </xs:element>
-			    <xs:element name="long">
-				    <xs:simpleType>
-					    <xs:restriction base="xs:float">
-					    </xs:restriction>
-				    </xs:simpleType>
-			    </xs:element>
-		    </xs:sequence>
-	    </xs:complexType>   
-- CR 201 -  Support for multiple permissible dimension combinations for vessels/convoys in FTM 
-		Change of value float to nts:value_type
-          <xs:element name="value" type="nts:value_type" minOccurs="0" maxOccurs="4">
-            <xs:annotation>
-              <xs:documentation>Value of limitation (i.e.  max draught)</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:complexType name="value_type">
-            <xs:annotation>
-              <xs:documentation>Value of the limitation, with optional type to indicate the size of a vessel/convoy</xs:documentation>
-            </xs:annotation>
-            <xs:simpleContent>
-              <xs:extension base="xs:float">
-                <xs:attribute name="dimension_type" type="nts:dimension_type_code_enum" use="optional" />
-              </xs:extension>
-            </xs:simpleContent>
-          </xs:complexType>
-          <xs:simpleType name="dimension_type_code_enum">
-            <xs:restriction base="xs:string">
-              <xs:maxLength value="3"/>
-              <xs:enumeration value="LEN"/>
-              <xs:enumeration value="BRE"/>
-              <xs:enumeration value="HEI"/>
-              <xs:enumeration value="DRA"/>
-            </xs:restriction>
-          </xs:simpleType>
-		Add <xs:enumeration value="PERDIM" /> in limitation_code_enum  
+	- Add notice withdrawn flag, to indicate that the entire message is withdrawn.
+	- Add withdrawn_time, to indicate a limitation period is withdrawn
+	- subject_code_enum: de-activate <xs:enumeration value="CANCEL"/>
+- CR 199 - Amendment of format of geo-coordinates in NtS messages    
+- CR 201 - Support for multiple permissible dimension combinations for vessels/convoys in FTM 
+	- Change of value float to nts:value_type
+	- Added dimension_type_code_enum
+	- Add <xs:enumeration value="PERDIM" /> in limitation_code_enum  
 - Changed the namespace to https://ris.cesni.eu/_assets/NtS_XSD/4.0.4.6
 
 
@@ -78,235 +28,108 @@ An overview of all changes to the NtS xsd is provided in this file.
 
 ### Fixed
 - Correction of regex in ISRS-code restrictions. The locode can contain alphanumeric characters.
-      <xs:simpleType name="isrs_code_type">
-      <xs:annotation>
-        <xs:documentation>ISRS location code, unique identification of the geo object as defined in RIS Index encoding guide</xs:documentation>
-      </xs:annotation>
-      <xs:restriction base="xs:string">
-        <xs:length value="20"/>
-        <xs:pattern value="[A-Z]{2}[A-Z2-9]{3}[A-Z0-9]{5}[A-Z0-9]{5}[0-9]{5}" />
-      </xs:restriction>
-      </xs:simpleType>
 - Correction of inconsistancy in XSD - change maxLength of limitation_code_enum from 6 to 10
-        <xs:simpleType name="limitation_code_enum">
-            <xs:restriction base="xs:string">
-              <xs:maxLength value="10"/>
 
 ## [4.5] - Oct 2020
 
 ### Changed
 - CR 195 - Introduce network_part and object to WRM to comply with the structure of other NtS-messages
-	Changed object in WRM to optional & add network part
-      <xs:element name="network_part" type="nts:geo_network_type" minOccurs="0" maxOccurs="unbounded">
-        <xs:annotation>
-          <xs:documentation>A part on the network delimited by two points</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="object" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
-        <xs:annotation>
-          <xs:documentation>Object section</xs:documentation>
-        </xs:annotation>
-      </xs:element>
+	- Changed object in WRM to optional & add network part
 - CR 196: Streamlining of codes - removal of unused enumerations  
-		reason_code_enum
-			de-activate <xs:enumeration value="OTHER"/>
-		interval_code_enum
-			de-activate <xs:enumeration value="EXC"/>
-		Removal of following enumerations:
-			reason_code_enum
-					deleted value "INFSER"
-			subject_code_enum
-				deleted values "OBSTRU", "PAROBS", "DELAY", "VESLEN", "VESHEI", "VESBRE", "VESDRA", "AVALEN", "CLEHEI", "CLEWID", "AVADEP", "NOMOOR", "SERVIC",
-					"NOSERV", "SPEED", "WAVWAS", "PASSIN", "ANCHOR", "OVRTAK", "MINPWR", "DREDGE", "WORK", "EVENT", "CHGMAR", "CHGSER", "SPCMAR", "EXERC", "LEADEP",
-					"LEVDEC", "LEVRIS", "LIMITA", "MISECH", "ECDISU", "NEWOBJ", "CHWWY", "CONWWY", "DIVER", "SPECTR", "LOCRUL", "VHFCOV", "HIGVOL", "TURNIN",
-					"CONBRE", "CONLEN", "REMOBJ"  
+	- reason_code_enum: de-activate <xs:enumeration value="OTHER"/>
+	- interval_code_enum: de-activate <xs:enumeration value="EXC"/>
+	- Removal of following enumerations:
+		- reason_code_enum: deleted value "INFSER"
+		- subject_code_enum: deleted values "OBSTRU", "PAROBS", "DELAY", "VESLEN", "VESHEI", "VESBRE", "VESDRA", "AVALEN", "CLEHEI", "CLEWID", "AVADEP", "NOMOOR", "SERVIC", "NOSERV", "SPEED", "WAVWAS", "PASSIN", "ANCHOR", "OVRTAK", "MINPWR", "DREDGE", "WORK", "EVENT", "CHGMAR", "CHGSER", "SPCMAR", "EXERC", "LEADEP", "LEVDEC", "LEVRIS", "LIMITA", "MISECH", "ECDISU", "NEWOBJ", "CHWWY", "CONWWY", "DIVER", "SPECTR", "LOCRUL", "VHFCOV", "HIGVOL", "TURNIN", "CONBRE", "CONLEN", "REMOBJ"
 - CR 197 - Self Describing Message Part 2
-		Change <xs:element name="originator"> to <xs:element name="publisher">
-		Remove <xs:element name="source" minOccurs="0"> in FTM
-		Add <xs:element name="source" minOccurs="0"> in Identification
-		Make coordinate mandatory in location_type
-		  <xs:element name="coordinate" type="nts:coordinate_type">
-			<xs:annotation>
-			  <xs:documentation>coordinate</xs:documentation>
-			</xs:annotation>
-		  </xs:element>
-		Rename preticted to forecast in measure_type
-			<xs:element name="forecast" type="xs:boolean">
-				<xs:annotation>
-					<xs:documentation>Forecast (1 or true) or real measurement (0 or false)</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		Make measuredate mandatory in weather_report
-		  <xs:element name="measuredate" type="xs:dateTime">
-			<xs:annotation>
-			  <xs:documentation>Date and time of measurement or forecast value including timezone</xs:documentation>
-			</xs:annotation>
-		  </xs:element>
-		Make interval_code mandatory in limitation_period
-    		<xs:element name="interval_code" type="nts:interval_code_enum" default="CON">
-				<xs:annotation>
-					<xs:documentation>Interval for limitation if applicable</xs:documentation>
-				</xs:annotation>
-			</xs:element>
+	- Change <xs:element name="originator"> to <xs:element name="publisher">
+	- Remove <xs:element name="source" minOccurs="0"> in FTM
+	- Add <xs:element name="source" minOccurs="0"> in Identification
+	- Make coordinate mandatory in location_type
+	- Rename preticted to forecast in measure_type
+	- Make measuredate mandatory in weather_report
+	- Make interval_code mandatory in limitation_period
 
 ## [4.4] - June 2020
 
 ### Added    
 - CR 193 - Add Geographic Impact of an NtS message
-      Add optional element geographic_impact to network_part and object
-      The following coordinate system must be used: WGS84 latitude/longitude (EPSG:4326)
-      This geographic data is NOT  for navigational purposes
-        <xs:element name="geographic_impact" minOccurs="0">
-          <xs:annotation>
-            <xs:documentation>Geographical impact</xs:documentation>
-          </xs:annotation>
-          <xs:simpleType>
-            <xs:restriction base="xs:string">
-            </xs:restriction>
-          </xs:simpleType>
-        </xs:element>
+	- Add optional element geographic_impact to network_part and object
+	- The following coordinate system must be used: WGS84 latitude/longitude (EPSG:4326)
+	- This geographic data is NOT  for navigational purposes
 
 
 ## [4.3] - June 2020
 
 ### Fixed
 - Correction of inconsistancy in XSD - change maxLength of limitation_code_enum from 6 to 10
-    	<xs:simpleType name="limitation_code_enum">
-		    <xs:restriction base="xs:string">
-			  <xs:maxLength value="10"/>
 
 ### Changed   
 - CR 192 - Self Describing NtS Message
-      Add <xs:complexType name="location_type"> with folowing elements
-        - isrs-code (instead of id)
-        - type_code
-        - un_locode
-        - fairway_section_code
-        - object_reference_code
-        - fairway_hectometre
-        - coordinate
-      Add localisation_name_type: object_name is mandatory, but un_location_name is optional cause dismar/berth without transshipment don't always have a un-location
-        <xs:complexType name="localisation_name_type">
-          <xs:sequence>
-            <xs:element name="un_location_name" type ="nts:name_type" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="object_name" type ="nts:name_type" minOccurs="1" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      Add object_location_type: for an object it is mandatory to fill in the location_type and the localisation_name, so one knows the name of the object
-        <xs:complexType name="object_location_type">
-          <xs:sequence>
-            <xs:element name="location" type ="nts:location_type" maxOccurs="1" />
-            <xs:element name="localisation_name" type ="nts:localisation_name_type" maxOccurs="1"/>
-          </xs:sequence>
-        </xs:complexType>
-      Add network_point_location_type: a network_part is always delimited by two ISRS locations. network_point_location_type contains ONE of these two points.
-      This element contains the mandatory location_type and the optional localisation_name_type, so it's not mandatory to give an object_name and un_location_name for a dismar
-          <xs:complexType name="network_point_location_type">
-            <xs:sequence>
-              <xs:element name="location" type ="nts:location_type" maxOccurs="1"/>
-              <xs:element name="localisation_name" type ="nts:localisation_name_type" minOccurs="0" maxOccurs="1"/>
-            </xs:sequence>
-          </xs:complexType>
-      Update geo_object_type:
-        - Use <xs:element name="geo_location" type="nts:object_location_type">
-        - fairway_name: mandatory element instead of optional <xs:element name="fairway_name" type="nts:name_type" minOccurs="1" maxOccurs="unbounded">
-        - add route_name: optional element <xs:element name="route_name" type="nts:name_type" minOccurs="0" maxOccurs="unbounded">
-      Add geo_network_type instead of fairwaysection type
-          - Add <xs:element name="geo_location_from" type="nts:network_point_location_type">
-          - Add <xs:element name="geo_location_to" type="nts:network_point_location_type">
-          - fairway_name: mandatory element instead of optional
-          - Add <xs:element name="route_name" type="nts:name_type" minOccurs="0" maxOccurs="unbounded">
-          - Add <xs:element name="type_code" type="nts:type_code_enum">, to define if the network part is a fairway, lake, canal, river
-      FTM
-        Use network_part instead of fairway_section <xs:element name="network_part" type="nts:geo_network_type" minOccurs="0" maxOccurs="unbounded">
-      ICEM
-        Use network_part instead of fairway_section <xs:element name="network_part" type="nts:geo_network_type">
-      WERM
-        Use network_part inline with FTM and ICEM message <xs:element name="network_part" type="nts:geo_network_type">
+	- Add <xs:complexType name="location_type"> with folowing elements
+		- isrs-code (instead of id), type_code, un_locode, fairway_section_code, object_reference_code, fairway_hectometre, coordinate
+	- Add localisation_name_type: object_name is mandatory, but un_location_name is optional cause dismar/berth without transshipment don't always have a un-location
+	- Add object_location_type: for an object it is mandatory to fill in the location_type and the localisation_name, so one knows the name of the object
+	- Add network_point_location_type: a network_part is always delimited by two ISRS locations. network_point_location_type contains ONE of these two points.
+		- This element contains the mandatory location_type and the optional localisation_name_type, so it's not mandatory to give an object_name and un_location_name for a dismar
+	- Update geo_object_type:
+		- Use <xs:element name="geo_location" type="nts:object_location_type">
+		- fairway_name: mandatory element instead of optional <xs:element name="fairway_name" type="nts:name_type" minOccurs="1" maxOccurs="unbounded">
+		- add route_name: optional element <xs:element name="route_name" type="nts:name_type" minOccurs="0" maxOccurs="unbounded">
+	- Add geo_network_type instead of fairwaysection type
+		- Add <xs:element name="geo_location_from" type="nts:network_point_location_type">
+		- Add <xs:element name="geo_location_to" type="nts:network_point_location_type">
+		- fairway_name: mandatory element instead of optional
+		- Add <xs:element name="route_name" type="nts:name_type" minOccurs="0" maxOccurs="unbounded">
+		- Add <xs:element name="type_code" type="nts:type_code_enum">, to define if the network part is a fairway, lake, canal, river
+	- FTM
+		- Use network_part instead of fairway_section <xs:element name="network_part" type="nts:geo_network_type" minOccurs="0" maxOccurs="unbounded">
+	- ICEM
+		- Use network_part instead of fairway_section <xs:element name="network_part" type="nts:geo_network_type">
+	- WERM
+		- Use network_part inline with FTM and ICEM message <xs:element name="network_part" type="nts:geo_network_type">
 
 ## [4.2] - Apr 2018
 
 ### Changed          
 - CR 187 Make weather_class_code optional in the Weather Related Message (WERM)
-			<xs:element name="weather_class_code" type="nts:weather_class_code_enum" minOccurs="0" maxOccurs="unbounded">
 - CR 190 NtS XSD Limitation Grouping
-			FTM
-			delete 
-				<xs:choice maxOccurs="unbounded">
-						<xs:element name="fairway_section" type="nts:fairway_section_type">
-        		<xs:element name="object" type="nts:object_type">
-			delete 
-				<xs:complexType name="fairway_section_type">
-					<xs:complexType name="object_type">
-			instead
-				  <xs:complexType name="ftm_limitation_group_type">
-					<xs:sequence>
-					  <xs:choice maxOccurs="unbounded">
-						<xs:element name="fairway_section" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
-						  <xs:annotation>
-							<xs:documentation>Fairway section</xs:documentation>
-						  </xs:annotation>
-						</xs:element>
-						<xs:element name="object" type="nts:geo_object_type" minOccurs="0" maxOccurs="unbounded">
-						  <xs:annotation>
-							<xs:documentation>Object section</xs:documentation>
-						  </xs:annotation>
-						</xs:element>
-					  </xs:choice>
-					  <xs:element name="limitation_group" type="nts:limitation_group_type" minOccurs="0" maxOccurs="unbounded">
-						<xs:annotation>
-						  <xs:documentation>Group of limitations and periods for Fairways and Objects</xs:documentation>
-						</xs:annotation>
-					  </xs:element>
-					</xs:sequence>
-				  </xs:complexType>
-			ICEM
-			Fairway section no longer contains the limitation section
-				<xs:element name="fairway_section" type="nts:geo_object_type">
-			WERM
-			delete <xs:element name="fairway_section" type="nts:fairway_section_werm_type">
-			instead add <xs:element name="fairway_section" type="nts:geo_object_type">	
-			WRM
-			Change geo_object into object to be inline with other messagetypes
-				<xs:element name="object" type="nts:geo_object_type">
+	- FTM
+		- delete fairway_section choice element
+		- delete fairway_section_type
+		- replaced by ftm_limitation_group_type
+	- ICEM
+		- Fairway section no longer contains the limitation section
+	- WERM
+		- delete <xs:element name="fairway_section" type="nts:fairway_section_werm_type">
+		- instead add <xs:element name="fairway_section" type="nts:geo_object_type">	
+	- WRM
+		- Change geo_object into object to be inline with other messagetypes
 
 ## [4.0] - Nov 2016
 
 ### Added
 - CR 157 New NTS type code for bunkering/fuelling station
-			add value BNS to <xs:simpleType name="type_code_enum"> 
+	- add value BNS to <xs:simpleType name="type_code_enum"> 
 
 ### Fixed
 - Typo in type_code_enum:
-      <xs:enumeration value="LBK"/>, changed to  <xs:enumeration value="LKB"/>
+	- <xs:enumeration value="LBK"/>, changed to <xs:enumeration value="LKB"/>
 
 
 ### Changed
 - Textual changes in XSD description: harmonize documentation of elements with NtS encoding guides and 'XML_Scheme_V 4 0 4 0.xslx'
-
 - CR 155 Changes in Weather_item_code, Weather_category_code and Reason_code to improve information on weather conditions
-			add values to <xs:simpleType name="weather_category_code_enum">: values 0->22
-			add value WERMCO to <xs:simpleType name="reason_code_enum">
+	- add values to <xs:simpleType name="weather_category_code_enum">: values 0->22
+	- add value WERMCO to <xs:simpleType name="reason_code_enum">
 - CR 176 Make the “nts_number” in WRM and WERM optional
-			<xs:element name="nts_number" type="nts:nts_number_type" minOccurs="0">
-        
 - CR 177 Make the “position_code” optional in the limitation section
-			<xs:element name="position_code" type="nts:position_code_enum" minOccurs="0">
 
 ## [3.8] - Aug 2014 
 
 ### Added
 - CR 153 Add target_group_code and direction_code to the limitation section
 - Add simple type "isrs_code_type" in XSD
-        <xs:simpleType name="isrs_code_type">
-          <xs:annotation>
-            <xs:documentation>ISRS location code, unique identification of the geo object as defined in RIS Index encoding guide</xs:documentation>
-          </xs:annotation>
-          <xs:restriction base="xs:string">
-          <xs:length value="20"/>
-          <xs:pattern value="[A-Z]{2}[A-Z]{3}[A-Z0-9]{5}[A-Z0-9]{5}[0-9]{5}" />
-          </xs:restriction>
-        </xs:simpleType>
 - Update "geo_object_type": changed the definition of element "id" from type "xs:string" to "nts:isrs_code_type".
 
 ## [3.7] - Jun 2014 
@@ -316,69 +139,32 @@ An overview of all changes to the NtS xsd is provided in this file.
 
 ### Changed
 - CR 148 update limitation_code_enum:
-			add <xs:enumeration value="NOBERT"/>, 'no berthing'
+	- add <xs:enumeration value="NOBERT"/>, 'no berthing'
 - Changed documentation for element subject_code
-     <xs:documentation>Subject code must contain one of the following: Announcement (ANNOUN), Warning (WARNIN), Notice withdrawn (CANCEL) or Information service (INFSER). More information on the use of codes can be found in the NtS Encoding Guide.</xs:documentation>
+	- Subject code must contain one of the following: Announcement (ANNOUN), Warning (WARNIN), Notice withdrawn (CANCEL) or Information service (INFSER). More information on the use of codes can be found in the NtS Encoding Guide.
 
 ## [3.6] - May 2014
 NtS Task Force XML Structure Enhancement 
           
 ### Changed
 - CR 141 Make ‘validity_period’ section mandatory in the WRM and ICEM
-			update "wrm_type" and "icem_type"
-				<xs:element name="validity_period" type="nts:validity_period_type"/>
+	- update "wrm_type" and "icem_type"
 - CR 142 Make 'date_end' optional in 'validity_period'
-			update "validity_period_type"
-				<xs:element name="date_end" type="xs:date" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>End date of the validity period</xs:documentation>
-					</xs:annotation>
-				</xs:element>
+	- update "validity_period_type"
 - CR 143 Introduction of WRM (predicted) value confidence interval
-			update "measure_type"
-			add fields "value_min" and "value_max"
-				<xs:element name="value_min" type="xs:float" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>Lowest value of confidence interval</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="value_max" type="xs:float" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>Highest value of confidence interval</xs:documentation>
-					</xs:annotation>
-				</xs:element>
+	- update "measure_type" to add fields "value_min" and "value_max"
 - CR 144 Correction of geo-coordinate field length
-			update "coordinate_type"
-				LAT:     [d]d_mm.mmm[m]_N =>  minlength=10, maxlength=12
-				LONG: [d][d]d_mm.mmm[m]_E =>  minlength=10, maxlength=13
+	- update "coordinate_type"
+		- LAT:     [d]d_mm.mmm[m]_N =>  minlength=10, maxlength=12
+		- LONG: [d][d]d_mm.mmm[m]_E =>  minlength=10, maxlength=13
 - CR 146 Addition of new Interval_code ‘WRD’ for “Monday to Friday except holidays”
-			update "interval_code_enum"
-				add WRD
+	- update "interval_code_enum" to add WRD
 - CR 149 Change the mandatory fairway_section part to optional for object-related FTM
-			update "ftm_type"
-				<xs:choice maxOccurs="unbounded">
-			<xs:element name="fairway_section" type="nts:fairway_section_type" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation>Fairway section</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="object" type="nts:object_type" minOccurs="0" maxOccurs="unbounded"/>
-				</xs:choice>
-			update "geo_object_type"
-				add
-			<xs:element name="fairway_name" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Waterway name</xs:documentation>
-				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="256"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>			
+	- update "ftm_type"
+	- update "geo_object_type"
 - CR 151 Remove measure_code “NOM”
 	- update "measure_code_enum" obsolete values due to 151 but still valid for backwards compatibility: "NOM"
-				
+
 ## [3.5] - February 2014
 NtS Task Force XML Structure Enhancement 
 

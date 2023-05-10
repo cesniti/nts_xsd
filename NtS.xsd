@@ -592,9 +592,13 @@
     - subject_code_enum
       de-activate <xs:enumeration value="CANCEL"/>
 -->
+<!-- V.5.0 july 2021  
+    Approval of alle change requests during RIS Week - Temporary Working Group NtS
+    XSD ready for ES-RIS 2023/1 
+-->
 
 <!-- =================================================================================== -->
-<xs:schema xmlns:nts="https://ris.cesni.eu/_assets/NtS_XSD/4.0.4.6" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://ris.cesni.eu/_assets/NtS_XSD/4.0.4.6" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.0.4.6">
+<xs:schema xmlns:nts="https://ris.cesni.eu/_assets/NtS_XSD/5.0.5.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://ris.cesni.eu/_assets/NtS_XSD/5.0.5.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="5.0.5.0">
 	<!--
   ===========================================
   = definition of main element RIS_Message  =

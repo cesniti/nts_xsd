@@ -377,30 +377,30 @@ NtS Task Force XML Structure Enhancement
 				</xs:simpleType>
 			</xs:element>			
 - CR 151 Remove measure_code “NOM”
- - update "measure_code_enum" obsolete values due to 151 but still valid for backwards compatibility: "NOM"
+	- update "measure_code_enum" obsolete values due to 151 but still valid for backwards compatibility: "NOM"
 				
 ## [3.5] - February 2014
 NtS Task Force XML Structure Enhancement 
 
 ### Changed  
 - CR 128 Harmonization (standardization) of FTM content/coding together with revised NtS Encoding Guide
- - obsolete values due to CR128 but still valid for backwards compatibility: "INFSER"
- - update subject_code_enum, obsolete values due to CR128 but still valid for backwards compatibility: "OBSTRU", "PAROBS", "DELAY", "VESLEN", "VESHEI", "VESBRE", "VESDRA", "AVALEN", "CLEHEI", "CLEWID", "AVADEP", "NOMOOR", "SERVIC", "NOSERV", "SPEED", "WAVWAS", "PASSIN", "ANCHOR", "OVRTAK", "MINPWR", "DREDGE", "WORK", "EVENT", "CHGMAR", "CHGSER", "SPCMAR", "EXERC", "LEADEP", "LEVDEC", "LEVRIS", "LIMITA", "MISECH", "ECDISU", "NEWOBJ", "CHWWY", "CONWWY", "DIVER", "SPECTR", "LOCRUL", "VHFCOV", "HIGVOL", "TURNIN", "CONBRE", "CONLEN", "REMOBJ"
+	- obsolete values due to CR128 but still valid for backwards compatibility: "INFSER"
+	- update subject_code_enum, obsolete values due to CR128 but still valid for backwards compatibility: "OBSTRU", "PAROBS", "DELAY", "VESLEN", "VESHEI", "VESBRE", "VESDRA", "AVALEN", "CLEHEI", "CLEWID", "AVADEP", "NOMOOR", "SERVIC", "NOSERV", "SPEED", "WAVWAS", "PASSIN", "ANCHOR", "OVRTAK", "MINPWR", "DREDGE", "WORK", "EVENT", "CHGMAR", "CHGSER", "SPCMAR", "EXERC", "LEADEP", "LEVDEC", "LEVRIS", "LIMITA", "MISECH", "ECDISU", "NEWOBJ", "CHWWY", "CONWWY", "DIVER", "SPECTR", "LOCRUL", "VHFCOV", "HIGVOL", "TURNIN", "CONBRE", "CONLEN", "REMOBJ"
 - CR 130 update geo_object_type, use the ISRS code for the unique identification of the geo object in the element "id" in geo_object_type
 - CR 131 update type_code_enum:
- - add <xs:enumeration value="LBK"/>
- - add <xs:enumeration value="BRO"/>
+	- add <xs:enumeration value="LBK"/>
+	- add <xs:enumeration value="BRO"/>
 - CR 132 update geo_object_type, optional position information added to the geo_object_type:
 - CR 135 Provision of the unit of values within NtS messages
- - add <xs:simpleType name="unit_enum">
- - update limitation_type, optional unit information added: <xs:element name="unit" type="nts:unit_enum" minOccurs="0"/>
- - update measure_type, optional unit information added: <xs:element name="unit" type="nts:unit_enum" minOccurs="0"/>
- - update weather_item_type, optional unit information added: <xs:element name="unit" type="nts:unit_enum" minOccurs="0"/>
+	- add <xs:simpleType name="unit_enum">
+	- update limitation_type, optional unit information added: <xs:element name="unit" type="nts:unit_enum" minOccurs="0"/>
+	- update measure_type, optional unit information added: <xs:element name="unit" type="nts:unit_enum" minOccurs="0"/>
+	- update weather_item_type, optional unit information added: <xs:element name="unit" type="nts:unit_enum" minOccurs="0"/>
 - CR 136 Use of xs:dateTime type in the NtS XSD
- - update identification_type, 'date_issue' and 'time_issue' merged in one element 'date_issue' and changed from optional to mandatory 
- - update measure_type, 'measuredate' and 'measuretime' merged in one element 'measuredate'
- - update ice_condition_type, 'measuredate' and 'measuretime' merged in one element 'measuredate'
- - update weather_report_type, 'measuredate' and 'measuretime' merged in one element 'measuredate'
+	- update identification_type, 'date_issue' and 'time_issue' merged in one element 'date_issue' and changed from optional to mandatory 
+	- update measure_type, 'measuredate' and 'measuretime' merged in one element 'measuredate'
+	- update ice_condition_type, 'measuredate' and 'measuretime' merged in one element 'measuredate'
+	- update weather_report_type, 'measuredate' and 'measuretime' merged in one element 'measuredate'
 - CR 140 direction_code_min_enum and direction_code_max_enum are merged to weather_direction_code_enum
 
 ## [3.4] - November 2013
@@ -408,34 +408,34 @@ NtS Task Force XML Structure Enhancement
 
 ### Added
 - CR 087	WERM message type: Usage of enumerations
- - add <xs:simpleType name="weather_class_code_enum">
- - add <xs:simpleType name="weather_item_code_enum">
- - add <xs:simpleType name="weather_category_code_enum">
- - add <xs:simpleType name="direction_code_min_enum">
- - add <xs:simpleType name="direction_code_max_enum">
+	- add <xs:simpleType name="weather_class_code_enum">
+	- add <xs:simpleType name="weather_item_code_enum">
+	- add <xs:simpleType name="weather_category_code_enum">
+	- add <xs:simpleType name="direction_code_min_enum">
+	- add <xs:simpleType name="direction_code_max_enum">
 - CR 127	update type_code_enum:
- - add <xs:enumeration value="RES"/>
+	- add <xs:enumeration value="RES"/>
 
 ### Changed
 - CR 087	WERM message type: Usage of enumerations
- - update weather_class_code, changed type from string to weather_class_code_enum
- - update weather_item_code, changed type from string to weather_item_code_enum
- - update weather_category_code, changed type from string to weather_category_code_enum
- - update direction_code_min, changed type from string to direction_code_min_enum
- - update direction_code_max, changed type from string to direction_code_max_enum
+	- update weather_class_code, changed type from string to weather_class_code_enum
+	- update weather_item_code, changed type from string to weather_item_code_enum
+	- update weather_category_code, changed type from string to weather_category_code_enum
+	- update direction_code_min, changed type from string to direction_code_min_enum
+	- update direction_code_max, changed type from string to direction_code_max_enum
 - CR 110	update direction_code_max_enum:
- - changed xs:maxLength from 2 to 3
- - add <xs:enumeration value="WRB"/>
+	- changed xs:maxLength from 2 to 3
+	- add <xs:enumeration value="WRB"/>
 - CR 128 Harmonization (standardization) of FTM content/coding together with revised NtS Encoding Guide
- - update communication_code_enum, add the value "EI": <xs:enumeration value="EI"/>
- - update reason_code_enum
-  - add values "CHGMAR", "DAMMAR", "FALMAT", "MISECH", "HEARIS", "HIGVOL", "ECDISU", "LOCRUL", "NEWOBJ", "OBUNWA", "VHFCOV", "REMOBJ", "LEVRIS", "SPCMAR"
-  - deleted value "INFSER"
- - update limitation_code_enum
-  - add value "LEADEP"
- - update subject_code_enum
-  - add value "INFSER"
-  - deleted values "OBSTRU", "PAROBS", "DELAY", "VESLEN", "VESHEI", "VESBRE", "VESDRA", "AVALEN", "CLEHEI", "CLEWID", "AVADEP", "NOMOOR", "SERVIC", "NOSERV", "SPEED", "WAVWAS", "PASSIN", "ANCHOR", "OVRTAK", "MINPWR", "DREDGE", "WORK", "EVENT", "CHGMAR", "CHGSER", "SPCMAR", "EXERC", "LEADEP", "LEVDEC", "LEVRIS", "LIMITA", "MISECH", "ECDISU", "NEWOBJ", "CHWWY", "CONWWY", "DIVER", "SPECTR", "LOCRUL", "VHFCOV", "HIGVOL", "TURNIN", "CONBRE", "CONLEN", "REMOBJ"
+	- update communication_code_enum, add the value "EI": <xs:enumeration value="EI"/>
+	- update reason_code_enum
+		- add values "CHGMAR", "DAMMAR", "FALMAT", "MISECH", "HEARIS", "HIGVOL", "ECDISU", "LOCRUL", "NEWOBJ", "OBUNWA", "VHFCOV", "REMOBJ", "LEVRIS", "SPCMAR"
+		- deleted value "INFSER"
+	- update limitation_code_enum
+		- add value "LEADEP"
+	- update subject_code_enum
+		- add value "INFSER"
+		- deleted values "OBSTRU", "PAROBS", "DELAY", "VESLEN", "VESHEI", "VESBRE", "VESDRA", "AVALEN", "CLEHEI", "CLEWID", "AVADEP", "NOMOOR", "SERVIC", "NOSERV", "SPEED", "WAVWAS", "PASSIN", "ANCHOR", "OVRTAK", "MINPWR", "DREDGE", "WORK", "EVENT", "CHGMAR", "CHGSER", "SPCMAR", "EXERC", "LEADEP", "LEVDEC", "LEVRIS", "LIMITA", "MISECH", "ECDISU", "NEWOBJ", "CHWWY", "CONWWY", "DIVER", "SPECTR", "LOCRUL", "VHFCOV", "HIGVOL", "TURNIN", "CONBRE", "CONLEN", "REMOBJ"
 - CR 129 update geo_object_type, increase the length of the element “name” for the geo object from 64 to 256 characters:
 
 ## [3.3] - June 2013
@@ -443,23 +443,23 @@ NtS Task Force XML Structure Enhancement
 
 ### Added
 - CR 102 update target_group_code_enum with the value 'WOC' for workside craft:
- - add <xs:enumeration value="WOC"/>
+	- add <xs:enumeration value="WOC"/>
 - CR 104 update reason_code_enum with the value 'ICE' for ice:
- - add <xs:enumeration value="ICE"/>
+	- add <xs:enumeration value="ICE"/>
 - CR 105 update target_group_code_enum with the value 'MOV' for motorized vessels and 'NMV' for non motorized vessels:
- - add <xs:enumeration value="MOV"/>
- - add <xs:enumeration value="NMV"/>
+	- add <xs:enumeration value="MOV"/>
+	- add <xs:enumeration value="NMV"/>
 - CR 106 update reason_code_enum with the value 'OBSTAC' for obstacle:
- - add <xs:enumeration value="OBSTAC"/>
+	- add <xs:enumeration value="OBSTAC"/>
 - CR 111 update reference_code_enum with the value 'HBO' for High Water Level before overflow Danube Commission:
- - add <xs:enumeration value="HBO"/>
+	- add <xs:enumeration value="HBO"/>
 			
 ## [3.2] - November 2012
 NtS Task Force XML Structure Enhancement 
 
 ### Changed
 - CR 120 Change namespace to http://www.ris.eu/nts/MajorStandard.MinorStandard.MajorXSD.MinorXSD to be compliant with the namespace definition for the NtS Webservices.
- - Example: The version of the NtS standard is 3.0 and for the XSD 3.2 gives the namespace: http://www.ris.eu/nts/3.0.3.2
+	- Example: The version of the NtS standard is 3.0 and for the XSD 3.2 gives the namespace: http://www.ris.eu/nts/3.0.3.2
 
 ## [3.1] - December 2011
 NtS Task Force XML Structure Enhancement 
@@ -467,34 +467,34 @@ NtS Task Force XML Structure Enhancement
 ### Added
 - CR 084 add new <xs:element name="label" minOccurs="0"> and new <xs:element name="remark" minOccurs="0"> into communication_type section
 - CR 086 Message Numbering
- - add new <xs:complexType name="nts_number_type"> in each message type FTM/ICEM/WERM/WRM.
- - <xs:complexType name="nts_number_type"> consists of <xs:element name="organisation">, <xs:element name="year">, <xs:element name="number"> and <xs:element name="serial_number">
- - delete <xs:element name="year">, <xs:element name="number"> and <xs:element name="serial_number"> in <xs:complexType name="ftm_type">
- - update <xs:element name="year"> min. value 2000 is changed to 1900
- - update <xs:element name="number"> max. value 9999 is increased to 99999999
- - add new <xs:element name="internal_id" type="nts:internal_id_type" minOccurs="0" /> in each section (Identification, FTM, ICEM, WERN and WRM) 
+	- add new <xs:complexType name="nts_number_type"> in each message type FTM/ICEM/WERM/WRM.
+	- <xs:complexType name="nts_number_type"> consists of <xs:element name="organisation">, <xs:element name="year">, <xs:element name="number"> and <xs:element name="serial_number">
+	- delete <xs:element name="year">, <xs:element name="number"> and <xs:element name="serial_number"> in <xs:complexType name="ftm_type">
+	- update <xs:element name="year"> min. value 2000 is changed to 1900
+	- update <xs:element name="number"> max. value 9999 is increased to 99999999
+	- add new <xs:element name="internal_id" type="nts:internal_id_type" minOccurs="0" /> in each section (Identification, FTM, ICEM, WERN and WRM) 
 
 ### Fixed
 - CR 074 The element <validity_period.date_end> is a mandatory element of type <xs:date> as already foreseen in the XSD version 3.0. The indefinite End date validity period should be "9999-12-31" instead of "99999999" mentioned in the Standard (see XML Message Specification)
 
 ### Changed
 - CR 080 update communication_code_enum. Harmonisation of communication codes with ERI standard:
- - <xs:enumeration value="TEL"/> changed into <xs:enumeration value="TE"/>
- - <xs:enumeration value="VHF"/> changed into <xs:enumeration value="AP"/>
- - <xs:enumeration value="INT"/> changed into <xs:enumeration value="AH"/>
- - <xs:enumeration value="TXT"/> changed into <xs:enumeration value="TT"/>
- - <xs:enumeration value="FAX"/> changed into <xs:enumeration value="FX"/>
- - <xs:enumeration value="LIG"/> changed into <xs:enumeration value="LS"/>
- - <xs:enumeration value="FLA"/> changed into <xs:enumeration value="FS"/>
- - <xs:enumeration value="SOU"/> changed into <xs:enumeration value="SO"/>	
+	- <xs:enumeration value="TEL"/> changed into <xs:enumeration value="TE"/>
+	- <xs:enumeration value="VHF"/> changed into <xs:enumeration value="AP"/>
+	- <xs:enumeration value="INT"/> changed into <xs:enumeration value="AH"/>
+	- <xs:enumeration value="TXT"/> changed into <xs:enumeration value="TT"/>
+	- <xs:enumeration value="FAX"/> changed into <xs:enumeration value="FX"/>
+	- <xs:enumeration value="LIG"/> changed into <xs:enumeration value="LS"/>
+	- <xs:enumeration value="FLA"/> changed into <xs:enumeration value="FS"/>
+	- <xs:enumeration value="SOU"/> changed into <xs:enumeration value="SO"/>	
 - CR 088 namespace changed to http://www.ris.eu/nts/3.1
 - CR 089 update <xs:simpleType name="country_code_enum">
- - add <xs:enumeration value="RS"/>
- - add <xs:enumeration value="ME"/>
- - delete <xs:enumeration value="CS"/>
+	- add <xs:enumeration value="RS"/>
+	- add <xs:enumeration value="ME"/>
+	- delete <xs:enumeration value="CS"/>
 - CR 090 update <xs:simpleType name="position_code_enum">
- - add <xs:enumeration value="RY"/>
- - add <xs:enumeration value="GY"/>
+	- add <xs:enumeration value="RY"/>
+	- add <xs:enumeration value="GY"/>
 - CR 093 add <xs:complexType name="difference_type"> in replacement of <xs:element name="difference" type="xs:float" minOccurs="0"> into the element <xs:complexType name="measure_type">
 - CR 097 add <xs:element name="measuredate" type="xs:date"> and <xs:element name="measuretime" type="xs:time"> into <xs:complexType name="weather_report_type">
 

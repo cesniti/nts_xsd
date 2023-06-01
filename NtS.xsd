@@ -347,7 +347,7 @@
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
-      <xs:element name="remark" type="nts:multilanguage1024_type" minOccurs="0">
+      <xs:element name="remark" type="nts:multilanguage256_type" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Additional remarks concerning the communication</xs:documentation>
         </xs:annotation>
@@ -1139,6 +1139,7 @@
     <xs:simpleContent>
       <xs:extension base="nts:string_256">
         <xs:attribute name="language" type="nts:language_code_enum" use="optional" />
+		<xs:attribute name="automated_translation" type="xs:boolean" use="optional" />
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
@@ -1146,13 +1147,7 @@
     <xs:simpleContent>
       <xs:extension base="nts:string_500">
         <xs:attribute name="language" type="nts:language_code_enum" use="optional" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="multilanguage1024_type">
-    <xs:simpleContent>
-      <xs:extension base="nts:string_1024">
-        <xs:attribute name="language" type="nts:language_code_enum" use="optional" />
+		<xs:attribute name="automated_translation" type="xs:boolean" use="optional" />
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
@@ -1164,11 +1159,6 @@
   <xs:simpleType name="string_500">
     <xs:restriction base="xs:string">
       <xs:maxLength value="500"/>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="string_1024">
-    <xs:restriction base="xs:string">
-      <xs:maxLength value="1024"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="type_code_enum">

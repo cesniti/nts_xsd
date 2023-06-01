@@ -1289,11 +1289,6 @@
 				  <xs:documentation>iCalendar with limitation period definition</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="duration_code" type="nts:duration_code_enum" minOccurs="0">
-				<xs:annotation>
-				  <xs:documentation>Duration of limitation, if applicable.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
 			<xs:element name="withdrawn_time" type="xs:dateTime" minOccurs="0">
 				<xs:annotation>
 				  <xs:documentation>Date and time of withdrawal including time zone</xs:documentation>
@@ -1301,14 +1296,6 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:simpleType name="duration_code_enum">
-		<xs:restriction base="xs:string">
-			<xs:maxLength value="3"/>
-			<xs:enumeration value="DTI"/>
-			<xs:enumeration value="NTI"/>
-			<xs:enumeration value="RVI"/>
-		</xs:restriction>
-	</xs:simpleType>
   	<xs:simpleType name="limitation_code_enum">
 		<xs:restriction base="xs:string">
 			<xs:maxLength value="10"/>

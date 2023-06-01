@@ -2,6 +2,12 @@
 
 An overview of all changes to the NtS xsd is provided in this file.
 
+## [Unreleased]
+
+### Changed
+- CR 208 - Introduce a limitation code to allow navigation in all directions
+
+
 ## [5.0] - July 2021
 
 ### Changed

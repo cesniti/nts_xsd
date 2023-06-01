@@ -589,7 +589,7 @@
           <xs:documentation>General Ice Code, to indicate the impact because of ice</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="ice_code_detail" type="nts:ice_code_detail_enum" minOccurs="0">
+      <xs:element name="ice_code_detail" type="nts:ice_code_detail_enum" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>Additional, detailed ice codes</xs:documentation>
         </xs:annotation>
@@ -617,7 +617,6 @@
 		  <xs:enumeration value="G"/>
 		  <xs:enumeration value="H"/>
 		  <xs:enumeration value="I"/>
-		  <xs:enumeration value="J"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!--
@@ -1218,7 +1217,7 @@
           <xs:documentation>Target group information</xs:documentation>
         </xs:annotation>
       </xs:element>
-	  <xs:element name="ice_condition" type="nts:ice_condition_type" minOccurs="0" maxOccurs="unbounded">
+	  <xs:element name="ice_condition" type="nts:ice_condition_type" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Ice conditions</xs:documentation>
         </xs:annotation>

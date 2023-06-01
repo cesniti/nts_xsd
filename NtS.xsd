@@ -332,27 +332,31 @@
 					<xs:documentation>Communication code (telephone, VHF etc.)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="communication_means" type="nts:communication_means_type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Detailed communication channel information - number, label and remark</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="communication_means_type">
+		<xs:sequence>
 			<xs:element name="number" type="nts:multilanguage256_type" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Telephone, VHF number (including callsign), e-mail address, URL or teletext</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-      <xs:element name="label" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Name of the attachment or additional information</xs:documentation>
-        </xs:annotation>
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:maxLength value="256"/>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:element>
-      <xs:element name="remark" type="nts:multilanguage256_type" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Additional remarks concerning the communication</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
+			<xs:element name="label" type="nts:multilanguage256_type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Name of the attachment or additional information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remark" type="nts:multilanguage256_type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Additional remarks concerning the communication</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
 	</xs:complexType>
 	<xs:simpleType name="reporting_code_enum">
 		<xs:restriction base="xs:string">

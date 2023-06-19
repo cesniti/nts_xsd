@@ -32,11 +32,6 @@
 						<xs:documentation>Water related section</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="icem" type="nts:icem_type" maxOccurs="unbounded">
-					<xs:annotation>
-						<xs:documentation>Ice related section</xs:documentation>
-					</xs:annotation>
-				</xs:element>
 				<xs:element name="werm" type="nts:werm_type" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>Weather related section</xs:documentation>
@@ -542,41 +537,6 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <!--
-  ==========================================
-  = definition of icem_type,               =
-  = used in definition of RIS_Message_Type =
-  ==========================================
-  -->
-	<xs:complexType name="icem_type">
-		<xs:sequence>
-      <xs:element name="internal_id" type="nts:internal_id_type" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Internal ID</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-			<xs:element name="nts_number" type="nts:nts_number_type">
-				<xs:annotation>
-					<xs:documentation>NtS Number</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-      <xs:element name="validity_period" type="nts:validity_period_type">
-        <xs:annotation>
-          <xs:documentation>Overall period of validity</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="network_part" type="nts:geo_network_type">
-        <xs:annotation>
-          <xs:documentation>An unambiguous part on the network delimited by two points</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ice_condition" type="nts:ice_condition_type" maxOccurs="unbounded">
-        <xs:annotation>
-          <xs:documentation>Ice conditions</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-		</xs:sequence>
-	</xs:complexType>
 	<!--
   =========================================
   = types used in definition of icem_type =

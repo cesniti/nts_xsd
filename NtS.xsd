@@ -602,7 +602,7 @@
 		  <xs:enumeration value="A"/>
 		  <xs:enumeration value="B"/>
 		  <xs:enumeration value="C"/>
-		  <xs:enumeration value="E"/>
+		  <xs:enumeration value="D"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ice_code_detail_enum">

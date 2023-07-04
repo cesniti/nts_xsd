@@ -1454,24 +1454,24 @@
   </xs:complexType>
   <xs:simpleType name="target_group_code_enum">
 	<xs:annotation>
-		<xs:documentation>Values 'COM', 'NNU', 'LOA' and 'WOC' are obsolete per CR-204.</xs:documentation>
+		<xs:documentation>Values 'NNU' and 'WOC' are obsolete per CR-204.</xs:documentation>
 	</xs:annotation>
     <xs:restriction base="xs:string">
       <xs:maxLength value="3"/>
       <xs:enumeration value="ALL"/>
       <xs:enumeration value="CDG"/>
+	  <xs:enumeration value="COM"/>
       <xs:enumeration value="PAX"/>
       <xs:enumeration value="PLE"/>
       <xs:enumeration value="CNV"/>
 	  <xs:enumeration value="PUS"/>
+	  <xs:enumeration value="LOA"/>
       <xs:enumeration value="SMA"/>
       <xs:enumeration value="CND"/>
       <xs:enumeration value="MOV"/>
       <xs:enumeration value="NMV"/>
 	  <!-- obsolete values due to CR-204 but kept for backwards compatibility -->
-	  <xs:enumeration value="COM"/>
-      <xs:enumeration value="NNU"/>
-      <xs:enumeration value="LOA"/>
+      <xs:enumeration value="NNU"/>    
 	  <xs:enumeration value="WOC"/>
     </xs:restriction>
   </xs:simpleType>

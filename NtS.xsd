@@ -1072,7 +1072,7 @@
     <xs:sequence>
 	  <xs:element name="ris_id" minOccurs="0">
         <xs:annotation>
-            <xs:documentation>RIS_ID (GUID Identifier) of the location in RIS.net</xs:documentation>
+            <xs:documentation>RIS_ID (UUID Identifier) of the location in RIS.net</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="xs:string">

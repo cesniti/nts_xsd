@@ -6,6 +6,12 @@ An overview of all changes to the NtS xsd is provided in this file.
 
 ### Changed
 - CR 208 - Introduce a limitation code to allow navigation in all directions
+- CR 203 - Addition of RIS_ID to NtS messages LocationType
+- CR 205 - Translation of content
+- CR 206 - Merge of FTM and ICEM
+- CR 207 - Use of iCalendar in Limitation Period
+- CR 208 - Introduce a limitation code to allow navigation in all directions
+
 
 
 ## [5.0] - July 2021

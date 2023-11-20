@@ -5,7 +5,10 @@ An overview of all changes to the NtS xsd is provided in this file.
 ## [Unreleased]
 
 ### Changed
-- CR 206 - Merge of FTM and ICEM
+- CR 203 - Addition of RIS_ID to NtS messages LocationType
+- CR 205 - Translation of content
+- - CR 206 - Merge of FTM and ICEM
+
 
 ## [5.0] - July 2021
 

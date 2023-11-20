@@ -1253,8 +1253,9 @@
 			<xs:enumeration value="CONBRE"/>
 			<xs:enumeration value="CONLEN"/>
 			<xs:enumeration value="LEADEP"/>
-      <xs:enumeration value="NOBERT"/>
-      <xs:enumeration value="PERDIM" />
+			<xs:enumeration value="NOBERT"/>
+			<xs:enumeration value="PERDIM" />
+			<xs:enumeration value="ALLDIR" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="position_code_enum">

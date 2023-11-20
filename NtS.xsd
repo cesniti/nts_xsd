@@ -1210,61 +1210,19 @@
   </xs:complexType>
 	<xs:complexType name="limitation_period_type">
 		<xs:sequence>
-			<xs:element name="date_start" type="xs:date">
+			<xs:element name="calendar" type="xs:string" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Start date of limitation period including time zone</xs:documentation>
+				  <xs:documentation>iCalendar with limitation period definition</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="date_end" type="xs:date" minOccurs="0">
+			<xs:element name="withdrawn_time" type="xs:dateTime" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>End date of limitation period including time zone</xs:documentation>
+				  <xs:documentation>Date and time of withdrawal including time zone</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="time_start" type="xs:time" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Start time of limitation period without time zone</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="time_end" type="xs:time" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>End time of limitation period without time zone</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="interval_code" type="nts:interval_code_enum" default="CON">
-				<xs:annotation>
-					<xs:documentation>Interval for limitation if applicable</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-      <xs:element name="withdrawn_time" type="xs:dateTime" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Date and time of withdrawal including time zone</xs:documentation>
-        </xs:annotation>
-      </xs:element>
 		</xs:sequence>
 	</xs:complexType>
-  <xs:simpleType name="interval_code_enum">
-		<xs:restriction base="xs:string">
-			<xs:maxLength value="3"/>
-			<xs:enumeration value="CON"/>
-			<xs:enumeration value="DAY"/>
-			<xs:enumeration value="WRK"/>
-			<xs:enumeration value="WKN"/>
-			<xs:enumeration value="SUN"/>
-			<xs:enumeration value="MON"/>
-			<xs:enumeration value="TUE"/>
-			<xs:enumeration value="WED"/>
-			<xs:enumeration value="THU"/>
-			<xs:enumeration value="FRI"/>
-			<xs:enumeration value="SAT"/>
-			<xs:enumeration value="DTI"/>
-			<xs:enumeration value="NTI"/>
-			<xs:enumeration value="RVI"/>
-			<xs:enumeration value="WRD"/>
-      <!--obsolete values due to CR 196 but still valid for backwards compatibility -->
-      <xs:enumeration value="EXC"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="limitation_code_enum">
+  	<xs:simpleType name="limitation_code_enum">
 		<xs:restriction base="xs:string">
 			<xs:maxLength value="10"/>
 			<xs:enumeration value="OBSTRU"/>

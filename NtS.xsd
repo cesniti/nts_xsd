@@ -1059,6 +1059,16 @@
   </xs:complexType>
   <xs:complexType name="location_type">
     <xs:sequence>
+	  <xs:element name="ris_id" minOccurs="0">
+        <xs:annotation>
+            <xs:documentation>RIS_ID (UUID Identifier) of the location in RIS.net</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"/>  
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
       <xs:element name="isrs_code" type="nts:isrs_code_type">
         <xs:annotation>
           <xs:documentation>ISRS Location Code of the network part or object</xs:documentation>

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:nts="https://ris.cesni.eu/_assets/NtS_XSD/5.0.5.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://ris.cesni.eu/_assets/NtS_XSD/5.0.5.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="5.0.5.0">
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:nts="https://ris.cesni.eu/_assets/NtS_XSD/5.0.5.0" 
+		targetNamespace="https://ris.cesni.eu/_assets/NtS_XSD/5.0.5.0" 
+		elementFormDefault="qualified" 
+		attributeFormDefault="unqualified" 
+		version="5.0.5.0">
 	<!--
   ===========================================
   = definition of main element RIS_Message  =

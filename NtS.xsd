@@ -247,7 +247,6 @@
           <xs:documentation>FTM limitation group must contain at least one network_part or object</xs:documentation>
         </xs:annotation>
       </xs:element>
-      
 		</xs:sequence>
 	</xs:complexType>
 	<!--
@@ -264,7 +263,6 @@
 			<xs:enumeration value="INFSER"/>
       <!--obsolete values due to CR198 but still valid for backwards compatibility -->
       <xs:enumeration value="CANCEL"/>
-      
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="reason_code_enum">

@@ -1223,6 +1223,11 @@
 				  <xs:documentation>Date and time of withdrawal including time zone</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+      <xs:element name="end_time_estimated" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The end time of the limitation period is estimated</xs:documentation>
+        </xs:annotation>
+      </xs:element>
 		</xs:sequence>
 	</xs:complexType>
   	<xs:simpleType name="limitation_code_enum">
@@ -1312,6 +1317,10 @@
 			<xs:enumeration value="WGS"/>
 			<xs:enumeration value="RN"/>
 			<xs:enumeration value="HBO"/>
+      <xs:enumeration value="HCL"/>
+      <xs:enumeration value="LCL"/>
+      <xs:enumeration value="MTH"/>
+      <xs:enumeration value="MTL"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="indication_code_enum">

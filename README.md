@@ -11,6 +11,7 @@ An overview of all changes to the NtS xsd is provided in this file.
 - CR 206 - Merge of FTM and ICEM
 - CR 207 - Use of iCalendar in Limitation Period
 - CR 208 - Introduce a limitation code to allow navigation in all directions
+- CR 209 - Introduce new reference codes for reference water levels
 
 
 

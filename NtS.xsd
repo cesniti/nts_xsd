@@ -1314,6 +1314,10 @@
 			<xs:enumeration value="WGS"/>
 			<xs:enumeration value="RN"/>
 			<xs:enumeration value="HBO"/>
+      <xs:enumeration value="HCL"/>
+      <xs:enumeration value="LCL"/>
+      <xs:enumeration value="MTH"/>
+      <xs:enumeration value="MTL"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="indication_code_enum">

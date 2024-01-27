@@ -6,6 +6,7 @@ An overview of all changes to the NtS xsd is provided in this file.
 
 ### Changed
 - CR 203 - Addition of RIS_ID to NtS messages LocationType
+- CR 204 - Clean-up of unused codes and unusable codes for Voyage Calculation
 - CR 205 - Translation of content
 - CR 206 - Merge of FTM and ICEM
 - CR 207 - Use of iCalendar in Limitation Period

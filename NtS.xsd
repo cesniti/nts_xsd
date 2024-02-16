@@ -227,9 +227,9 @@
 					<xs:documentation>Overall period of validity</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="contents" type="nts:multilanguage500_type" minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="contents" type="nts:multilanguage2200_type" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Additional information in local language</xs:documentation>
+					<xs:documentation>Additional information in specified language</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="reason_code" type="nts:reason_code_enum" minOccurs="0">
@@ -1068,9 +1068,9 @@
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<xs:complexType name="multilanguage500_type">
+	<xs:complexType name="multilanguage2200_type">
 		<xs:simpleContent>
-			<xs:extension base="nts:string_500">
+			<xs:extension base="nts:string_2200">
 				<xs:attribute name="language" type="nts:language_code_enum" use="optional" />
 		<xs:attribute name="automated_translation" type="xs:boolean" use="optional" />
 			</xs:extension>
@@ -1081,9 +1081,9 @@
 			<xs:maxLength value="256"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="string_500">
+	<xs:simpleType name="string_2200">
 		<xs:restriction base="xs:string">
-			<xs:maxLength value="500"/>
+			<xs:maxLength value="2200"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="type_code_enum">

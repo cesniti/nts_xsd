@@ -13,6 +13,7 @@ An overview of all changes to the NtS xsd is provided in this file.
 - CR 208 - Introduce a limitation code to allow navigation in all directions
 - CR 209 - Introduce new reference codes for reference water levels
 - CR 210 - Further precision of requirements for NtS FTM validity and limitation end dates
+- CR 211 - Extend the size of the comment in FTM messages
 
 ## [5.0] - July 2021
 

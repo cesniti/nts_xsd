@@ -26,15 +26,15 @@ An overview of all changes to the NtS xsd is provided in this file.
 
 ### Changed
 - CR 198 - Improvement of withdrawal process for FTM limitations and messages
-	- Add notice withdrawn flag, to indicate that the entire message is withdrawn.
-	- Add withdrawn_time, to indicate a limitation period is withdrawn
-	- subject_code_enum: de-activate <xs:enumeration value="CANCEL"/>
+ - Add notice withdrawn flag, to indicate that the entire message is withdrawn.
+ - Add withdrawn_time, to indicate a limitation period is withdrawn
+ - subject_code_enum: de-activate <xs:enumeration value="CANCEL"/>
 - CR 199 - Amendment of format of geo-coordinates in NtS messages    
 - CR 201 - Support for multiple permissible dimension combinations for vessels/convoys in FTM 
-	- Change of value float to nts:value_type
-	- Added dimension_type_code_enum
-	- Add <xs:enumeration value="PERDIM" /> in limitation_code_enum  
-- Changed the namespace to https://ris.cesni.eu/_assets/NtS_XSD/4.0.4.6
+ - Change of value float to nts:value_type
+ - Added dimension_type_code_enum
+ - Add <xs:enumeration value="PERDIM" /> in limitation_code_enum  
+ - Changed the namespace to https://ris.cesni.eu/_assets/NtS_XSD/4.0.4.6
 
 
 ## [4.0.4.1-Hotfix] - Feb 2021
@@ -70,7 +70,6 @@ An overview of all changes to the NtS xsd is provided in this file.
 	- Add optional element geographic_impact to network_part and object
 	- The following coordinate system must be used: WGS84 latitude/longitude (EPSG:4326)
 	- This geographic data is NOT  for navigational purposes
-
 
 ## [4.3] - June 2020
 

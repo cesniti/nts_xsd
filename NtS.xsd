@@ -339,7 +339,7 @@
 	</xs:complexType>
 	<xs:complexType name="communication_means_type">
 		<xs:sequence>
-			<xs:element name="number" type="nts:multilanguage2000_type" minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="number" type="nts:multilanguage2000_type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Telephone, VHF number (including callsign), e-mail address, URL or teletext</xs:documentation>
 				</xs:annotation>
@@ -1089,6 +1089,11 @@
 			<xs:maxLength value="256"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="string_2000">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2000"/>
+		</xs:restriction>
+	</xs:simpleType>	
 	<xs:simpleType name="string_2200">
 		<xs:restriction base="xs:string">
 			<xs:maxLength value="2200"/>

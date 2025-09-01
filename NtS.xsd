@@ -1145,6 +1145,7 @@
 			<xs:enumeration value="BRO"/>
 			<xs:enumeration value="BNS"/>
 			<xs:enumeration value="DMR"/>
+			<xs:enumeration value="MRA"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="coordinate_type">

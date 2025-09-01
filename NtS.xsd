@@ -362,7 +362,7 @@
 			<xs:enumeration value="INF"/>
 			<xs:enumeration value="ADD"/>
 			<xs:enumeration value="REG"/>
-			<xs:enumeration value="OBS"/>
+			<xs:enumeration value="LIS"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="communication_code_enum">

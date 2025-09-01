@@ -187,6 +187,7 @@
 			<xs:enumeration value="MT"/>
 			<xs:enumeration value="EL"/>
 			<xs:enumeration value="SL"/>
+			<xs:enumeration value="UK"/>			
 		</xs:restriction>
 	</xs:simpleType>
 	<!--

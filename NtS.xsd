@@ -248,7 +248,12 @@
 					<xs:documentation>FTM limitation group must contain at least one network_part or object</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+      <xs:element name="area_of_impact" type="nts:area_of_impact_type" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>The overall area on which the entire message has an impact</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
 	</xs:complexType>
 	<!--
 	========================================
@@ -871,6 +876,44 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+  <xs:complexType name="area_of_impact_type">
+    <xs:sequence>
+      <xs:element name="ris_id" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>RIS_ID (UUID Identifier) of the location in RIS.net</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="area_name" type="nts:multilanguage256_type" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Name of the overall area - optional in different languages</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="impacted_object_types" type="nts:object_reference_type" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>List of impacted object types within the area - visualisation purposes</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="geographic_impact" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Geographical impact via coordinates in WKT (Well-Known-Text) format</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="coordinate" type="nts:coordinate_type" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Coordinate</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
 	<xs:complexType name="geo_network_type">
 		<xs:sequence>
 			<xs:element name="geo_location_from" type="nts:network_point_location_type">
@@ -1062,6 +1105,15 @@
 			<xs:pattern value="[A-Z]{2}[A-Z2-9]{3}[A-Z0-9]{5}[A-Z0-9]{5}[0-9]{5}" />
 		</xs:restriction>
 	</xs:simpleType>
+  <xs:complexType name="object_reference_type">
+    <xs:sequence>
+      <xs:element name="object_types" type ="nts:type_code_enum" minOccurs="1" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>List of object types</xs:documentation>
+        </xs:annotation>
+      </xs:element> 
+    </xs:sequence>
+  </xs:complexType>
 	<xs:complexType name="multilanguage256_type">
 		<xs:simpleContent>
 			<xs:extension base="nts:string_256">

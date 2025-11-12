@@ -2,6 +2,9 @@
 
 An overview of all changes to the NtS xsd is provided in this file.
 
+## [6.1] - June 2025
+- CR 215 - Add Reporting code “additional duty to observe” a VHF channel
+
 ## [6.0] - October 2024 (ES-RIS 2025)
 
 ### Changed

@@ -2,6 +2,11 @@
 
 An overview of all changes to the NtS xsd is provided in this file.
 
+## [7.0] - November 2025 (ES-RIS 2027)
+
+- CR 216	Add Type code “Marina” to NtS Reference Tables
+- CR 217	Add area of impact in an FTM message
+  
 ## [6.1] - June 2025
 - CR 215 - Add Reporting code “additional duty to observe” a VHF channel
 

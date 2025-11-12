@@ -1310,7 +1310,7 @@
 	</xs:simpleType>
 	<xs:simpleType name="reference_code_enum">
 		<xs:restriction base="xs:string">
-			<xs:maxLength value="4"/>
+			<xs:maxLength value="10"/>
 			<xs:enumeration value="NAP"/>
 			<xs:enumeration value="KP"/>
 			<xs:enumeration value="FZP"/>
@@ -1335,6 +1335,15 @@
 			<xs:enumeration value="LCL"/>
 			<xs:enumeration value="MTH"/>
 			<xs:enumeration value="MTL"/>
+			<xs:enumeration value="BAL"/>
+			<xs:enumeration value="BLS"/>
+			<xs:enumeration value="CMH"/>
+			<xs:enumeration value="DHHN"/>
+			<xs:enumeration value="EVRF2000"/>
+			<xs:enumeration value="EVRF2007"/>
+			<xs:enumeration value="MHW"/>
+			<xs:enumeration value="MHWS"/>
+			<xs:enumeration value="NGF"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="indication_code_enum">

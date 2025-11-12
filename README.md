@@ -2,15 +2,6 @@
 
 An overview of all changes to the NtS xsd is provided in this file.
 
-
-## [7.0] - November 2025 (ES-RIS 2027)
-
-- CR 213	UK language
-- CR 214	Add geodetic reference codes defined in the RIS Index Encoding Guide to the NtS Reference Codes
-- CR 215	Add Reporting code “additional duty to listen” a VHF channel
-- CR 216	Add Type code “Marina” to NtS Reference Tables
-- CR 217	Add area of impact in an FTM message
-
 ## [6.0] - October 2024 (ES-RIS 2025)
 
 ### Changed

@@ -6,6 +6,8 @@ An overview of all changes to the NtS xsd is provided in this file.
 
 - CR 216	Add Type code “Marina” to NtS Reference Tables
 - CR 217	Add area of impact in an FTM message
+- CR 218	Add reason_code ‘Exceptional strong currents’
+- CR 219	Remove the serial_number maximum value limit
   
 ## [6.1] - June 2025
 - CR 215 - Add Reporting code “additional duty to observe” a VHF channel

@@ -808,7 +808,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:integer">
-						<xs:minInclusive value="00000000"/>
+						<xs:minInclusive value="0"/>
 						<xs:maxInclusive value="99999999"/>
 					</xs:restriction>
 				</xs:simpleType>
@@ -819,8 +819,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:integer">
-						<xs:minInclusive value="00"/>
-						<xs:maxInclusive value="99"/>
+						<xs:minInclusive value="0"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>

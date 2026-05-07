@@ -316,7 +316,7 @@
 			<xs:enumeration value="WERMCO"/>
 			<!--obsolete values due to CR196 but still valid for backwards compatibility -->
 			<xs:enumeration value="OTHER"/>
-      <xs:enumeration value="STRCUR"/>
+     		<xs:enumeration value="STRCUR"/>
     </xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="communication_type">
